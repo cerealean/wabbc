@@ -53,3 +53,8 @@ const worldAnvil = worldAnvilConverter.convert('# Header');
 - Run tests: `npm test`
 - Run example: `npm run example`
 - All tests passing, project ready for use
+
+## Development Guidelines
+- **Always commit your work** at the end of making changes to ensure version control integrity
+- Use conventional commit messages following the established commitlint configuration
+- Run tests before committing to ensure code quality
