@@ -6,15 +6,28 @@ Thank you for your interest in contributing to this project! Here are some guide
 
 1. Fork and clone the repository
 2. Install dependencies: `npm install`
-3. Run tests: `npm test`
-4. Run example: `npm run example`
+3. Build the project: `npm run build`
+4. Run tests: `npm test`
+5. Run example: `npm run example`
+
+## TypeScript Development
+
+This project is written in TypeScript. Here are the key commands:
+
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm run build:watch` - Compile and watch for changes
+- `npm run clean` - Remove build artifacts
+- `npm test` - Run tests (builds automatically)
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage
 
 ## Code Style
 
-- Use ESLint for code formatting
-- Follow existing code patterns
+- Use TypeScript for all source code
+- Follow existing code patterns and type annotations
 - Write tests for new features
 - Ensure all tests pass before submitting
+- Use ESLint for code formatting
 
 ## Commit Guidelines
 
@@ -47,10 +60,11 @@ git commit -m "test: add tests for strikethrough conversion"
 ## Pre-commit Hooks
 
 The project has pre-commit hooks that will:
-1. Run all tests
-2. Validate commit message format
+1. Build the TypeScript project
+2. Run all tests
+3. Validate commit message format
 
-If either fails, the commit will be rejected.
+If any step fails, the commit will be rejected.
 
 ## Testing
 

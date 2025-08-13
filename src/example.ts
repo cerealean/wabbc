@@ -1,4 +1,4 @@
-const { convertMarkdownToBBCode } = require('./index');
+import { convertMarkdownToBBCode, ConversionOptions } from './main';
 
 // Example markdown
 const markdown = `
@@ -29,4 +29,5 @@ console.log('=== TRADITIONAL BBCODE ===');
 console.log(convertMarkdownToBBCode(markdown));
 
 console.log('\n=== WORLDANVIL BBCODE ===');
-console.log(convertMarkdownToBBCode(markdown, { format: 'worldanvil' }));
+const worldAnvilOptions: ConversionOptions = { format: 'worldanvil' };
+console.log(convertMarkdownToBBCode(markdown, worldAnvilOptions));

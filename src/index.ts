@@ -4,13 +4,21 @@
  */
 
 /**
- * Converts markdown text to BBCode format
- * @param {string} markdown - The markdown text to convert
- * @param {Object} options - Conversion options
- * @param {string} options.format - 'bbcode' for traditional BBCode or 'worldanvil' for WorldAnvil BBCode
- * @returns {string} The converted BBCode text
+ * Options for converting markdown to BBCode
  */
-function convertMarkdownToBBCode(markdown, options = {}) {
+export interface ConversionOptions {
+  /** Format to convert to: 'bbcode' for traditional BBCode or 'worldanvil' for WorldAnvil BBCode */
+  format?: 'bbcode' | 'worldanvil';
+}
+
+/**
+ * Converts markdown text to BBCode format
+ * @param markdown - The markdown text to convert
+ * @param options - Conversion options
+ * @returns The converted BBCode text
+ * @throws Error if markdown input is not a string or format is invalid
+ */
+export function convertMarkdownToBBCode(markdown: string, options: ConversionOptions = {}): string {
     const { format = 'bbcode' } = options;
     
     if (!markdown || typeof markdown !== 'string') {
@@ -53,7 +61,7 @@ function convertMarkdownToBBCode(markdown, options = {}) {
 /**
  * Convert markdown headers to BBCode
  */
-function convertHeaders(text, format) {
+export function convertHeaders(text: string, format: 'bbcode' | 'worldanvil'): string {
     // H1-H6 headers
     for (let i = 6; i >= 1; i--) {
         const regex = new RegExp(`^#{${i}}\\s+(.+)$`, 'gm');
@@ -63,7 +71,7 @@ function convertHeaders(text, format) {
         } else {
             // Traditional BBCode uses [size] tags for headers
             const sizes = ['28', '24', '20', '18', '16', '14'];
-            text = text.replace(regex, `[size=${sizes[i-1]}][b]$1[/b][/size]`);
+            text = text.replace(regex, `[size=${sizes[i-1] as string}][b]$1[/b][/size]`);
         }
     }
     return text;
@@ -72,7 +80,7 @@ function convertHeaders(text, format) {
 /**
  * Convert markdown emphasis to BBCode
  */
-function convertEmphasis(text, format) {
+export function convertEmphasis(text: string, format: 'bbcode' | 'worldanvil'): string {
     // Bold: **text** or __text__
     text = text.replace(/\*\*(.*?)\*\*/g, '[b]$1[/b]');
     text = text.replace(/__(.*?)__/g, '[b]$1[/b]');
@@ -87,7 +95,7 @@ function convertEmphasis(text, format) {
 /**
  * Convert markdown links to BBCode
  */
-function convertLinks(text, format) {
+export function convertLinks(text: string, format: 'bbcode' | 'worldanvil'): string {
     // [text](url) - use negative lookbehind to avoid matching images
     text = text.replace(/(?<!\!)\[([^\]]+)\]\(([^)]+)\)/g, '[url=$2]$1[/url]');
     
@@ -100,7 +108,7 @@ function convertLinks(text, format) {
 /**
  * Convert markdown images to BBCode
  */
-function convertImages(text, format) {
+export function convertImages(text: string, format: 'bbcode' | 'worldanvil'): string {
     // ![alt](url)
     if (format === 'worldanvil') {
         text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '[img:$1]$2[/img]');
@@ -114,9 +122,9 @@ function convertImages(text, format) {
 /**
  * Convert markdown code to BBCode
  */
-function convertCode(text, format) {
+export function convertCode(text: string, format: 'bbcode' | 'worldanvil'): string {
     // Code blocks with language
-    text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+    text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang: string | undefined, code: string) => {
         if (format === 'worldanvil') {
             return `[code${lang ? `:${lang}` : ''}]${code.trim()}[/code]`;
         } else {
@@ -133,7 +141,7 @@ function convertCode(text, format) {
 /**
  * Convert markdown lists to BBCode
  */
-function convertLists(text, format) {
+export function convertLists(text: string, format: 'bbcode' | 'worldanvil'): string {
     // Convert unordered lists
     text = text.replace(/^(\s*)[-*+]\s+(.+)$/gm, '$1[*] $2');
     
@@ -141,7 +149,7 @@ function convertLists(text, format) {
     text = text.replace(/^(\s*)\d+\.\s+(.+)$/gm, '$1[*] $2');
     
     // Wrap list items in [list] tags
-    text = text.replace(/(\n|^)((?:\s*\[\*\][^\n]*(?:\n|$))+)/g, (match, start, listItems) => {
+    text = text.replace(/(\n|^)((?:\s*\[\*\][^\n]*(?:\n|$))+)/g, (match, start: string, listItems: string) => {
         return `${start}[list]\n${listItems.trim()}\n[/list]\n`;
     });
     
@@ -151,7 +159,7 @@ function convertLists(text, format) {
 /**
  * Convert markdown quotes to BBCode
  */
-function convertQuotes(text, format) {
+export function convertQuotes(text: string, format: 'bbcode' | 'worldanvil'): string {
     // Block quotes
     text = text.replace(/^>\s*(.+)$/gm, '[quote]$1[/quote]');
     
@@ -164,21 +172,9 @@ function convertQuotes(text, format) {
 /**
  * Convert markdown strikethrough to BBCode
  */
-function convertStrikethrough(text, format) {
+export function convertStrikethrough(text: string, format: 'bbcode' | 'worldanvil'): string {
     // ~~text~~
     text = text.replace(/~~(.*?)~~/g, '[s]$1[/s]');
     
     return text;
 }
-
-module.exports = {
-    convertMarkdownToBBCode,
-    convertHeaders,
-    convertEmphasis,
-    convertLinks,
-    convertImages,
-    convertCode,
-    convertLists,
-    convertQuotes,
-    convertStrikethrough
-};

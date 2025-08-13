@@ -1,4 +1,15 @@
-const { convertMarkdownToBBCode } = require('../src/index');
+import { 
+    convertMarkdownToBBCode,
+    convertHeaders,
+    convertEmphasis,
+    convertLinks,
+    convertImages,
+    convertCode,
+    convertLists,
+    convertQuotes,
+    convertStrikethrough,
+    ConversionOptions
+} from '../src/index';
 
 describe('Markdown to BBCode Converter', () => {
     describe('Basic conversion', () => {
@@ -34,32 +45,35 @@ describe('Markdown to BBCode Converter', () => {
 
     describe('WorldAnvil format', () => {
         test('should convert headers to WorldAnvil format', () => {
-            expect(convertMarkdownToBBCode('# Header 1', { format: 'worldanvil' }))
+            const options: ConversionOptions = { format: 'worldanvil' };
+            expect(convertMarkdownToBBCode('# Header 1', options))
                 .toBe('[h1]Header 1[/h1]');
-            expect(convertMarkdownToBBCode('## Header 2', { format: 'worldanvil' }))
+            expect(convertMarkdownToBBCode('## Header 2', options))
                 .toBe('[h2]Header 2[/h2]');
         });
 
         test('should convert images to WorldAnvil format', () => {
-            expect(convertMarkdownToBBCode('![alt text](image.jpg)', { format: 'worldanvil' }))
+            const options: ConversionOptions = { format: 'worldanvil' };
+            expect(convertMarkdownToBBCode('![alt text](image.jpg)', options))
                 .toBe('[img:alt text]image.jpg[/img]');
         });
 
         test('should convert code blocks with language to WorldAnvil format', () => {
             const markdown = '```javascript\nconsole.log("hello");\n```';
-            expect(convertMarkdownToBBCode(markdown, { format: 'worldanvil' }))
+            const options: ConversionOptions = { format: 'worldanvil' };
+            expect(convertMarkdownToBBCode(markdown, options))
                 .toBe('[code:javascript]console.log("hello");[/code]');
         });
     });
 
     describe('Error handling', () => {
         test('should throw error for non-string input', () => {
-            expect(() => convertMarkdownToBBCode(null)).toThrow('Markdown input must be a non-empty string');
-            expect(() => convertMarkdownToBBCode(123)).toThrow('Markdown input must be a non-empty string');
+            expect(() => convertMarkdownToBBCode(null as any)).toThrow('Markdown input must be a non-empty string');
+            expect(() => convertMarkdownToBBCode(123 as any)).toThrow('Markdown input must be a non-empty string');
         });
 
         test('should throw error for invalid format', () => {
-            expect(() => convertMarkdownToBBCode('test', { format: 'invalid' }))
+            expect(() => convertMarkdownToBBCode('test', { format: 'invalid' as any }))
                 .toThrow('Format must be either "bbcode" or "worldanvil"');
         });
     });
@@ -85,6 +99,46 @@ describe('Markdown to BBCode Converter', () => {
 
         test('should convert strikethrough', () => {
             expect(convertMarkdownToBBCode('~~strikethrough~~')).toBe('[s]strikethrough[/s]');
+        });
+    });
+
+    describe('Individual function tests', () => {
+        test('convertHeaders should work correctly', () => {
+            expect(convertHeaders('# Test', 'bbcode')).toBe('[size=28][b]Test[/b][/size]');
+            expect(convertHeaders('# Test', 'worldanvil')).toBe('[h1]Test[/h1]');
+        });
+
+        test('convertEmphasis should work correctly', () => {
+            expect(convertEmphasis('**bold**', 'bbcode')).toBe('[b]bold[/b]');
+            expect(convertEmphasis('*italic*', 'bbcode')).toBe('[i]italic[/i]');
+        });
+
+        test('convertLinks should work correctly', () => {
+            expect(convertLinks('[test](url)', 'bbcode')).toBe('[url=url]test[/url]');
+        });
+
+        test('convertImages should work correctly', () => {
+            expect(convertImages('![alt](url)', 'bbcode')).toBe('[img]url[/img]');
+            expect(convertImages('![alt](url)', 'worldanvil')).toBe('[img:alt]url[/img]');
+        });
+
+        test('convertCode should work correctly', () => {
+            expect(convertCode('`code`', 'bbcode')).toBe('[code]code[/code]');
+        });
+
+        test('convertLists should work correctly', () => {
+            const result = convertLists('- item', 'bbcode');
+            expect(result).toContain('[*] item');
+            expect(result).toContain('[list]');
+            expect(result).toContain('[/list]');
+        });
+
+        test('convertQuotes should work correctly', () => {
+            expect(convertQuotes('> quote', 'bbcode')).toBe('[quote]quote[/quote]');
+        });
+
+        test('convertStrikethrough should work correctly', () => {
+            expect(convertStrikethrough('~~text~~', 'bbcode')).toBe('[s]text[/s]');
         });
     });
 });
