@@ -55,9 +55,21 @@ const worldAnvil = worldAnvilConverter.convert('# Header');
 - All tests passing, project ready for use
 
 ## Development Guidelines
+
+**Always:**
+- Commit your work (see below instructions)
+- Write or update tests related to your work (see below instructions)
+
+### Committing Work
 - **Always commit your work**
   - Frequently
     - Multiple smaller commits relating to the same changes are better than 1 large commit
   - At the end of making changes to ensure version control integrity
 - Use conventional commit messages following the established commitlint configuration
 - No need to run lint or tests before committing because the precommit hooks will run those tasks automatically
+
+### Writing Tests
+- Write tests for all new features and bug fixes
+- Follow the established testing patterns and conventions
+- Use descriptive test names to clearly convey the purpose of each test
+- Use Faker, when applicable, to make tests more thorough and comprehensive
