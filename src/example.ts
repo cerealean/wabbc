@@ -15,9 +15,18 @@ Here's a [link](https://example.com) and an image:
 console.log("Hello, world!");
 \`\`\`
 
+### Unordered Lists
 - List item 1
+  - Nested item 1
+  - Nested item 2
+    - Sub-nested item
 - List item 2
 - List item 3
+
+### Ordered Lists
+1. First item
+2. Second item
+3. Third item
 
 > This is a quote
 > that spans multiple lines

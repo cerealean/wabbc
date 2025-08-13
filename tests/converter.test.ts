@@ -81,6 +81,16 @@ describe('Markdown to BBCode Converter', () => {
             expect(converter.convert(`+ ${item1}\n+ ${item2}`)).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]`);
         });
 
+        test('should convert ordered lists to traditional BBCode format', () => {
+            const item1 = faker.lorem.words(2);
+            const item2 = faker.lorem.words(3);
+            const item3 = faker.lorem.words(2);
+            
+            const markdown = `1. ${item1}\n2. ${item2}\n3. ${item3}`;
+            const expected = `[list]\n[*] ${item1}\n[*] ${item2}\n[*] ${item3}\n[/list]`;
+            expect(converter.convert(markdown)).toBe(expected);
+        });
+
         test('should convert quotes', () => {
             const quote = faker.lorem.sentence();
             expect(converter.convert(`> ${quote}`)).toBe(`[quote]${quote}[/quote]`);
@@ -143,6 +153,50 @@ describe('Markdown to BBCode Converter', () => {
             expect(converter.convert(`[${linkText}](${url})`)).toBe(`[url=${url}]${linkText}[/url]`);
             expect(converter.convert(`\`${code}\``)).toBe(`[code]${code}[/code]`);
             expect(converter.convert(`~~${strikeText}~~`)).toBe(`[s]${strikeText}[/s]`);
+        });
+
+        test('should convert unordered lists to WorldAnvil dash format', () => {
+            const item1 = faker.lorem.words(2);
+            const subItem = faker.lorem.words(3);
+            const item2 = faker.lorem.words(2);
+            const subSubItem = faker.lorem.words(2);
+            
+            const markdown = `- ${item1}\n  - ${subItem}\n- ${item2}\n    - ${subSubItem}`;
+            const expected = `- ${item1}\n-- ${subItem}\n- ${item2}\n--- ${subSubItem}`;
+            expect(converter.convert(markdown)).toBe(expected);
+        });
+
+        test('should convert complex nested unordered lists to WorldAnvil format', () => {
+            const item1 = faker.lorem.words(2);
+            const subItem1 = faker.lorem.words(3);
+            const item2 = faker.lorem.words(2);
+            const subItem2 = faker.lorem.words(2);
+            const subSubItem = faker.lorem.words(3);
+            const subSubSubItem = faker.lorem.words(2);
+            
+            const markdown = `- ${item1}\n  - ${subItem1}\n- ${item2}\n  - ${subItem2}\n    - ${subSubItem}\n      - ${subSubSubItem}`;
+            const expected = `- ${item1}\n-- ${subItem1}\n- ${item2}\n-- ${subItem2}\n--- ${subSubItem}\n---- ${subSubSubItem}`;
+            expect(converter.convert(markdown)).toBe(expected);
+        });
+
+        test('should convert ordered lists to WorldAnvil format', () => {
+            const item1 = faker.lorem.words(2);
+            const item2 = faker.lorem.words(3);
+            const item3 = faker.lorem.words(2);
+            
+            const markdown = `1. ${item1}\n2. ${item2}\n3. ${item3}`;
+            const expected = `[ol]\n  [li]${item1}[/li]\n  [li]${item2}[/li]\n  [li]${item3}[/li]\n[/ol]`;
+            expect(converter.convert(markdown)).toBe(expected);
+        });
+
+        test('should handle mixed unordered and ordered lists in WorldAnvil format', () => {
+            const unorderedItem = faker.lorem.words(2);
+            const orderedItem1 = faker.lorem.words(3);
+            const orderedItem2 = faker.lorem.words(2);
+            
+            const markdown = `- ${unorderedItem}\n\n1. ${orderedItem1}\n2. ${orderedItem2}`;
+            const expected = `- ${unorderedItem}\n\n[ol]\n  [li]${orderedItem1}[/li]\n  [li]${orderedItem2}[/li]\n[/ol]`;
+            expect(converter.convert(markdown)).toBe(expected);
         });
     });
 
