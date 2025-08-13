@@ -1,5 +1,5 @@
 {
-  "name": "markdown-bbcode-converter",
+  "name": "@cerealean/markdown-bbcode-converter",
   "version": "1.0.0",
   "description": "A Node.js library for converting GitHub-flavored Markdown to BBCode or WorldAnvil BBCode",
   "main": "dist/main.js",
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
+    "@faker-js/faker": "^9.9.0",
     "@types/jest": "^29.0.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^8.39.1",

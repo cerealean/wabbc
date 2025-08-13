@@ -1,5 +1,6 @@
 import { Converter, ConversionOptions } from '../src/main';
 import DefaultConverter from '../src/main';
+import { faker } from '@faker-js/faker';
 
 describe('Main Entry Point', () => {
     test('should export Converter class', () => {
@@ -20,18 +21,21 @@ describe('Main Entry Point', () => {
     });
 
     test('should work with exported Converter', () => {
+        const text = faker.lorem.word();
         const converter = new Converter();
-        expect(converter.convert('**test**')).toBe('[b]test[/b]');
+        expect(converter.convert(`**${text}**`)).toBe(`[b]${text}[/b]`);
     });
 
     test('should work with default export', () => {
+        const text = faker.lorem.word();
         const converter = new DefaultConverter();
-        expect(converter.convert('**test**')).toBe('[b]test[/b]');
+        expect(converter.convert(`**${text}**`)).toBe(`[b]${text}[/b]`);
     });
 
     test('should work with options using exported interface', () => {
+        const headerText = faker.lorem.words(2);
         const options: ConversionOptions = { format: 'worldanvil' };
         const converter = new Converter(options);
-        expect(converter.convert('# Header')).toBe('[h1]Header[/h1]');
+        expect(converter.convert(`# ${headerText}`)).toBe(`[h1]${headerText}[/h1]`);
     });
 });
