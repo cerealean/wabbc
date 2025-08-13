@@ -55,6 +55,9 @@ const worldAnvil = worldAnvilConverter.convert('# Header');
 - All tests passing, project ready for use
 
 ## Development Guidelines
-- **Always commit your work** at the end of making changes to ensure version control integrity
+- **Always commit your work**
+  - Frequently
+    - Multiple smaller commits relating to the same changes are better than 1 large commit
+  - At the end of making changes to ensure version control integrity
 - Use conventional commit messages following the established commitlint configuration
-- Run tests before committing to ensure code quality
+- No need to run lint or tests before committing because the precommit hooks will run those tasks automatically
