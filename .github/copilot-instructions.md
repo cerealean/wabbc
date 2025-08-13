@@ -59,6 +59,7 @@ const worldAnvil = worldAnvilConverter.convert('# Header');
 **Always:**
 - Commit your work (see below instructions)
 - Write or update tests related to your work (see below instructions)
+- Avoid barrel imports (index.ts files) - import directly from source files
 
 ### Committing Work
 - **Always commit your work**

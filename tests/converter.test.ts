@@ -352,4 +352,50 @@ describe('Markdown to BBCode Converter', () => {
             expect(converter.convert(`<${httpUrl}>`)).toBe(`[url]${httpUrl}[/url]`);
         });
     });
+
+    describe('Converter Strategy Management', () => {
+        let converter: Converter;
+        
+        beforeEach(() => {
+            converter = new Converter();
+        });
+
+        test('should expose strategies for debugging', () => {
+            const strategies = converter.getStrategies();
+            
+            expect(strategies).toHaveLength(8);
+            expect(strategies[0]?.name).toBe('HeaderConversion');
+            expect(strategies[0]?.priority).toBe(1);
+        });
+
+        test('should maintain strategy order by priority', () => {
+            const strategies = converter.getStrategies();
+            
+            for (let i = 1; i < strategies.length; i++) {
+                expect(strategies[i]?.priority).toBeGreaterThanOrEqual(strategies[i - 1]?.priority ?? 0);
+            }
+        });
+
+        test('should return a copy of strategies array', () => {
+            const strategies1 = converter.getStrategies();
+            const strategies2 = converter.getStrategies();
+            
+            expect(strategies1).not.toBe(strategies2); // Different array instances
+            expect(strategies1).toEqual(strategies2); // Same content
+        });
+
+        test('should have all expected strategies', () => {
+            const strategies = converter.getStrategies();
+            const strategyNames = strategies.map(s => s.name);
+            
+            expect(strategyNames).toContain('HeaderConversion');
+            expect(strategyNames).toContain('EmphasisConversion');
+            expect(strategyNames).toContain('ImageConversion');
+            expect(strategyNames).toContain('LinkConversion');
+            expect(strategyNames).toContain('CodeConversion');
+            expect(strategyNames).toContain('ListConversion');
+            expect(strategyNames).toContain('QuoteConversion');
+            expect(strategyNames).toContain('StrikethroughConversion');
+        });
+    });
 });

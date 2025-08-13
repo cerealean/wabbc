@@ -1,0 +1,96 @@
+import { faker } from '@faker-js/faker';
+import { ListConversionStrategy } from '../../src/strategies/list-strategy';
+
+describe('ListConversionStrategy', () => {
+  const strategy = new ListConversionStrategy();
+
+  test('should have correct priority and name', () => {
+    expect(strategy.priority).toBe(6);
+    expect(strategy.name).toBe('ListConversion');
+  });
+
+  describe('WorldAnvil format', () => {
+    test('should convert unordered lists to dash format', () => {
+      const item1 = faker.lorem.words(2);
+      const item2 = faker.lorem.words(3);
+      const markdown = `- ${item1}\n- ${item2}`;
+      const result = strategy.convert(markdown, 'worldanvil');
+      expect(result).toBe(`- ${item1}\n- ${item2}`);
+    });
+
+    test('should convert nested unordered lists with proper dash levels', () => {
+      const item1 = faker.lorem.words(2);
+      const subItem = faker.lorem.words(3);
+      const item2 = faker.lorem.words(2);
+      const markdown = `- ${item1}\n  - ${subItem}\n- ${item2}`;
+      const result = strategy.convert(markdown, 'worldanvil');
+      expect(result).toBe(`- ${item1}\n-- ${subItem}\n- ${item2}`);
+    });
+
+    test('should convert deeply nested unordered lists', () => {
+      const item = faker.lorem.word();
+      const sub1 = faker.lorem.word();
+      const sub2 = faker.lorem.word();
+      const sub3 = faker.lorem.word();
+      
+      const markdown = `- ${item}\n  - ${sub1}\n    - ${sub2}\n      - ${sub3}`;
+      const result = strategy.convert(markdown, 'worldanvil');
+      expect(result).toBe(`- ${item}\n-- ${sub1}\n--- ${sub2}\n---- ${sub3}`);
+    });
+
+    test('should convert ordered lists to [ol][li] format', () => {
+      const item1 = faker.lorem.words(2);
+      const item2 = faker.lorem.words(3);
+      const markdown = `1. ${item1}\n2. ${item2}`;
+      const result = strategy.convert(markdown, 'worldanvil');
+      expect(result).toBe(`[ol]\n  [li]${item1}[/li]\n  [li]${item2}[/li]\n[/ol]`);
+    });
+
+    test('should handle mixed unordered and ordered lists', () => {
+      const unorderedItem = faker.lorem.words(2);
+      const orderedItem1 = faker.lorem.words(3);
+      const orderedItem2 = faker.lorem.words(2);
+      
+      const markdown = `- ${unorderedItem}\n\n1. ${orderedItem1}\n2. ${orderedItem2}`;
+      const result = strategy.convert(markdown, 'worldanvil');
+      expect(result).toBe(`- ${unorderedItem}\n\n[ol]\n  [li]${orderedItem1}[/li]\n  [li]${orderedItem2}[/li]\n[/ol]`);
+    });
+  });
+
+  describe('Traditional BBCode format', () => {
+    test('should convert unordered lists to [list] format', () => {
+      const item1 = faker.lorem.words(2);
+      const item2 = faker.lorem.words(3);
+      const markdown = `- ${item1}\n- ${item2}`;
+      const result = strategy.convert(markdown, 'bbcode');
+      expect(result).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+    });
+
+    test('should convert ordered lists to [list] format', () => {
+      const item1 = faker.lorem.words(2);
+      const item2 = faker.lorem.words(3);
+      const markdown = `1. ${item1}\n2. ${item2}`;
+      const result = strategy.convert(markdown, 'bbcode');
+      expect(result).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+    });
+
+    test('should handle different list markers', () => {
+      const item1 = faker.lorem.words(2);
+      const item2 = faker.lorem.words(2);
+      
+      expect(strategy.convert(`- ${item1}\n- ${item2}`, 'bbcode')).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+      expect(strategy.convert(`* ${item1}\n* ${item2}`, 'bbcode')).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+      expect(strategy.convert(`+ ${item1}\n+ ${item2}`, 'bbcode')).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+    });
+
+    test('should handle nested lists with indentation', () => {
+      const item1 = faker.lorem.words(2);
+      const nestedItem = faker.lorem.words(3);
+      const item2 = faker.lorem.words(2);
+      
+      const markdown = `- ${item1}\n  - ${nestedItem}\n- ${item2}`;
+      const result = strategy.convert(markdown, 'bbcode');
+      expect(result).toBe(`[list]\n[*] ${item1}\n  [*] ${nestedItem}\n[*] ${item2}\n[/list]\n`);
+    });
+  });
+});
