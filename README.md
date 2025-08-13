@@ -10,6 +10,8 @@ A Node.js library written in TypeScript for converting GitHub-flavored Markdown 
 - Written in TypeScript with full type safety
 - Comprehensive error handling
 - Full test coverage
+- Class-based API for better performance and reusability
+- Backward compatibility with function-based API
 
 ## Installation
 
@@ -19,7 +21,45 @@ npm install markdown-bbcode-converter
 
 ## Usage
 
-### JavaScript/Node.js
+### Class-Based API (Recommended)
+
+#### JavaScript/Node.js
+```javascript
+const { Converter } = require('markdown-bbcode-converter');
+
+// Create converter instances
+const bbcodeConverter = new Converter();
+const worldAnvilConverter = new Converter({ format: 'worldanvil' });
+
+// Convert to traditional BBCode
+const bbcode = bbcodeConverter.convert('**Bold text** and *italic text*');
+console.log(bbcode); // [b]Bold text[/b] and [i]italic text[/i]
+
+// Convert to WorldAnvil BBCode
+const worldAnvilCode = worldAnvilConverter.convert('# Header');
+console.log(worldAnvilCode); // [h1]Header[/h1]
+```
+
+#### TypeScript
+```typescript
+import { Converter, ConversionOptions } from 'markdown-bbcode-converter';
+
+// Create converter instances
+const bbcodeConverter = new Converter();
+const worldAnvilConverter = new Converter({ format: 'worldanvil' });
+
+// Convert to traditional BBCode
+const bbcode: string = bbcodeConverter.convert('**Bold text** and *italic text*');
+console.log(bbcode); // [b]Bold text[/b] and [i]italic text[/i]
+
+// Convert to WorldAnvil BBCode
+const worldAnvilCode: string = worldAnvilConverter.convert('# Header');
+console.log(worldAnvilCode); // [h1]Header[/h1]
+```
+
+### Function-Based API (Backward Compatibility)
+
+#### JavaScript/Node.js
 ```javascript
 const { convertMarkdownToBBCode } = require('markdown-bbcode-converter');
 
@@ -32,7 +72,7 @@ const worldAnvilCode = convertMarkdownToBBCode('# Header', { format: 'worldanvil
 console.log(worldAnvilCode); // [h1]Header[/h1]
 ```
 
-### TypeScript
+#### TypeScript
 ```typescript
 import { convertMarkdownToBBCode, ConversionOptions } from 'markdown-bbcode-converter';
 
@@ -48,26 +88,55 @@ console.log(worldAnvilCode); // [h1]Header[/h1]
 
 ## API
 
-### `convertMarkdownToBBCode(markdown, options)`
+### Class-Based API
+
+#### `new Converter(options?)`
+
+Creates a new converter instance.
+
+**Parameters:**
+- `options` (ConversionOptions, optional): Conversion options
+  - `format` ('bbcode' | 'worldanvil'): Either 'bbcode' (default) for traditional BBCode or 'worldanvil' for WorldAnvil BBCode
+
+**Example:**
+```typescript
+const converter = new Converter({ format: 'worldanvil' });
+```
+
+#### `converter.convert(markdown)`
+
+Converts markdown text to BBCode format using the converter's configured format.
+
+**Parameters:**
+- `markdown` (string): The markdown text to convert
+
+**Returns:** string - The converted BBCode text
+
+**Throws:** Error if markdown input is not a string
+
+**Example:**
+```typescript
+const converter = new Converter();
+const result = converter.convert('**Bold text**');
+// Returns: '[b]Bold text[/b]'
+```
+
+### Function-Based API (Backward Compatibility)
+
+#### `convertMarkdownToBBCode(markdown, options?)`
 
 Converts markdown text to BBCode format.
 
-#### Parameters
-
+**Parameters:**
 - `markdown` (string): The markdown text to convert
 - `options` (ConversionOptions, optional): Conversion options
   - `format` ('bbcode' | 'worldanvil'): Either 'bbcode' (default) for traditional BBCode or 'worldanvil' for WorldAnvil BBCode
 
-#### Returns
+**Returns:** string - The converted BBCode text
 
-- (string): The converted BBCode text
+**Throws:** Error if markdown input is not a string or format is invalid
 
-#### Throws
-
-- Error if markdown input is not a string
-- Error if format is not 'bbcode' or 'worldanvil'
-
-## Type Definitions
+### Type Definitions
 
 ```typescript
 interface ConversionOptions {

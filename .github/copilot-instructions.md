@@ -30,12 +30,28 @@
 This is a Node.js library for converting GitHub-flavored Markdown to BBCode or WorldAnvil BBCode format.
 
 ## Key Features
+- Class-based API with `Converter` class for better performance and reusability
 - Converts GitHub-flavored Markdown to traditional BBCode
 - Converts GitHub-flavored Markdown to WorldAnvil BBCode format  
 - Supports headers, emphasis, links, images, code blocks, lists, quotes, strikethrough
+- Backward compatibility with function-based API
 - Comprehensive error handling and test coverage
 
 ## Usage
+### Class-based API (Recommended)
+```javascript
+const { Converter } = require('markdown-bbcode-converter');
+
+// Create converter instances
+const bbcodeConverter = new Converter();
+const worldAnvilConverter = new Converter({ format: 'worldanvil' });
+
+// Convert text
+const bbcode = bbcodeConverter.convert('**Bold text**');
+const worldAnvil = worldAnvilConverter.convert('# Header');
+```
+
+### Function-based API (Backward Compatibility)
 ```javascript
 const { convertMarkdownToBBCode } = require('markdown-bbcode-converter');
 

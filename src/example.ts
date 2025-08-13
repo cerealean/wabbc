@@ -1,4 +1,4 @@
-import { convertMarkdownToBBCode, ConversionOptions } from './main';
+import { Converter, convertMarkdownToBBCode, ConversionOptions } from './main';
 
 // Example markdown
 const markdown = `
@@ -25,9 +25,23 @@ console.log("Hello, world!");
 ~~Strikethrough text~~
 `;
 
-console.log('=== TRADITIONAL BBCODE ===');
+console.log('=== CLASS-BASED APPROACH ===');
+
+// Create converters for each format
+const bbcodeConverter = new Converter();
+const worldAnvilConverter = new Converter({ format: 'worldanvil' });
+
+console.log('--- Traditional BBCode (Class) ---');
+console.log(bbcodeConverter.convert(markdown));
+
+console.log('\n--- WorldAnvil BBCode (Class) ---');
+console.log(worldAnvilConverter.convert(markdown));
+
+console.log('\n=== BACKWARD COMPATIBLE FUNCTIONS ===');
+
+console.log('--- Traditional BBCode (Function) ---');
 console.log(convertMarkdownToBBCode(markdown));
 
-console.log('\n=== WORLDANVIL BBCODE ===');
+console.log('\n--- WorldAnvil BBCode (Function) ---');
 const worldAnvilOptions: ConversionOptions = { format: 'worldanvil' };
 console.log(convertMarkdownToBBCode(markdown, worldAnvilOptions));

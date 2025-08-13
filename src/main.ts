@@ -4,6 +4,7 @@
  */
 
 export { 
+    Converter,
     convertMarkdownToBBCode,
     convertHeaders,
     convertEmphasis,
@@ -16,5 +17,5 @@ export {
     ConversionOptions
 } from './index';
 
-// Default export for CommonJS compatibility
-export { convertMarkdownToBBCode as default } from './index';
+// Default export for CommonJS compatibility - now exports the Converter class
+export { Converter as default } from './index';
