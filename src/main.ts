@@ -5,17 +5,8 @@
 
 export { 
     Converter,
-    convertMarkdownToBBCode,
-    convertHeaders,
-    convertEmphasis,
-    convertLinks,
-    convertImages,
-    convertCode,
-    convertLists,
-    convertQuotes,
-    convertStrikethrough,
     ConversionOptions
-} from './index';
+} from './converter';
 
-// Default export for CommonJS compatibility - now exports the Converter class
-export { Converter as default } from './index';
+// Default export for CommonJS compatibility - exports the Converter class
+export { Converter as default } from './converter';
