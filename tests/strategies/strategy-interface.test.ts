@@ -4,7 +4,8 @@ import { EmphasisConversionStrategy } from '../../src/strategies/emphasis-strate
 import { ImageConversionStrategy } from '../../src/strategies/image-strategy';
 import { LinkConversionStrategy } from '../../src/strategies/link-strategy';
 import { CodeConversionStrategy } from '../../src/strategies/code-strategy';
-import { ListConversionStrategy } from '../../src/strategies/list-strategy';
+import { StandardListConversionStrategy } from '../../src/strategies/standard/list-strategy';
+import { WorldAnvilListConversionStrategy } from '../../src/strategies/worldanvil/list-strategy';
 import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 import { StrikethroughConversionStrategy } from '../../src/strategies/strikethrough-strategy';
 
@@ -15,7 +16,8 @@ describe('Strategy Interface and Priority', () => {
     new ImageConversionStrategy(),
     new LinkConversionStrategy(),
     new CodeConversionStrategy(),
-    new ListConversionStrategy(),
+    new StandardListConversionStrategy(),
+    new WorldAnvilListConversionStrategy(),
     new QuoteConversionStrategy(),
     new StrikethroughConversionStrategy()
   ];
@@ -41,7 +43,7 @@ describe('Strategy Interface and Priority', () => {
 
   test('should have sequential priorities starting from 1', () => {
     const priorities = strategies.map(s => s.priority).sort((a, b) => a - b);
-    expect(priorities).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+    expect(priorities).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
 
   test('should all implement ConversionStrategy interface', () => {
@@ -63,9 +65,10 @@ describe('Strategy Interface and Priority', () => {
       'HeaderConversion',
       'ImageConversion',
       'LinkConversion',
-      'ListConversion',
       'QuoteConversion',
-      'StrikethroughConversion'
+      'StandardListConversion',
+      'StrikethroughConversion',
+      'WorldAnvilListConversion'
     ];
     expect(strategyNames).toEqual(expectedNames);
   });

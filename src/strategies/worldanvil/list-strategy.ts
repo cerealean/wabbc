@@ -1,18 +1,14 @@
-import { ConversionStrategy } from './conversion-strategy';
+import { ConversionStrategy } from '../conversion-strategy';
 
 /**
- * Converts markdown lists to BBCode format
+ * Converts markdown lists to WorldAnvil BBCode format
  */
-export class ListConversionStrategy implements ConversionStrategy {
-  readonly priority = 6;
-  readonly name = 'ListConversion';
+export class WorldAnvilListConversionStrategy implements ConversionStrategy {
+  readonly priority = 7;
+  readonly name = 'WorldAnvilListConversion';
 
-  convert(text: string, format: 'bbcode' | 'worldanvil'): string {
-    if (format === 'worldanvil') {
-      return this.convertWorldAnvilLists(text);
-    } else {
-      return this.convertTraditionalLists(text);
-    }
+  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+    return this.convertWorldAnvilLists(text);
   }
 
   /**
@@ -86,23 +82,5 @@ export class ListConversionStrategy implements ConversionStrategy {
       const dashes = '-'.repeat(nestingLevel);
       return `${dashes} ${content}`;
     });
-  }
-
-  /**
-   * Convert lists to traditional BBCode format
-   */
-  private convertTraditionalLists(text: string): string {
-    // Convert unordered lists
-    text = text.replace(/^(\s*)[-*+]\s+(.+)$/gm, '$1[*] $2');
-    
-    // Convert ordered lists
-    text = text.replace(/^(\s*)\d+\.\s+(.+)$/gm, '$1[*] $2');
-    
-    // Wrap list items in [list] tags
-    text = text.replace(/(\n|^)((?:\s*\[\*\][^\n]*(?:\n|$))+)/g, (match, start: string, listItems: string) => {
-      return `${start}[list]\n${listItems.trim()}\n[/list]\n`;
-    });
-    
-    return text;
   }
 }

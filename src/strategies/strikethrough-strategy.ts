@@ -4,7 +4,7 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown strikethrough to BBCode format
  */
 export class StrikethroughConversionStrategy implements ConversionStrategy {
-  readonly priority = 8;
+  readonly priority = 9;
   readonly name = 'StrikethroughConversion';
 
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {

@@ -4,9 +4,10 @@ import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
 import { HeaderConversionStrategy } from "./strategies/header-strategy";
 import { ImageConversionStrategy } from "./strategies/image-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
-import { ListConversionStrategy } from "./strategies/list-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
+import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
+import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
 
 export class StrategyChainFactory {
     private static readonly bbcodeStrategies: ReadonlyArray<ConversionStrategy> = [
@@ -15,7 +16,7 @@ export class StrategyChainFactory {
         new ImageConversionStrategy(), // Must be before LinkConversionStrategy
         new LinkConversionStrategy(),
         new CodeConversionStrategy(),
-        new ListConversionStrategy(),
+        new StandardListConversionStrategy(),
         new QuoteConversionStrategy(),
         new StrikethroughConversionStrategy()
     ].sort((a, b) => a.priority - b.priority);
@@ -25,7 +26,7 @@ export class StrategyChainFactory {
         new ImageConversionStrategy(), // Must be before LinkConversionStrategy
         new LinkConversionStrategy(),
         new CodeConversionStrategy(),
-        new ListConversionStrategy(),
+        new WorldAnvilListConversionStrategy(),
         new QuoteConversionStrategy(),
         new StrikethroughConversionStrategy()
     ].sort((a, b) => a.priority - b.priority);

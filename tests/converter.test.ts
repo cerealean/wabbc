@@ -393,7 +393,29 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategyNames).toContain('ImageConversion');
             expect(strategyNames).toContain('LinkConversion');
             expect(strategyNames).toContain('CodeConversion');
-            expect(strategyNames).toContain('ListConversion');
+            expect(strategyNames).toContain('StandardListConversion');
+            expect(strategyNames).toContain('QuoteConversion');
+            expect(strategyNames).toContain('StrikethroughConversion');
+        });
+    });
+
+    describe('Converter Strategy Management - WorldAnvil', () => {
+        let converter: Converter;
+        
+        beforeEach(() => {
+            converter = new Converter({ format: 'worldanvil' });
+        });
+
+        test('should have all expected strategies for WorldAnvil format', () => {
+            const strategies = converter.getStrategies();
+            const strategyNames = strategies.map(s => s.name);
+            
+            expect(strategyNames).toContain('HeaderConversion');
+            expect(strategyNames).toContain('EmphasisConversion');
+            expect(strategyNames).toContain('ImageConversion');
+            expect(strategyNames).toContain('LinkConversion');
+            expect(strategyNames).toContain('CodeConversion');
+            expect(strategyNames).toContain('WorldAnvilListConversion');
             expect(strategyNames).toContain('QuoteConversion');
             expect(strategyNames).toContain('StrikethroughConversion');
         });

@@ -5,7 +5,7 @@ describe('StrikethroughConversionStrategy', () => {
   const strategy = new StrikethroughConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(8);
+    expect(strategy.priority).toBe(9);
     expect(strategy.name).toBe('StrikethroughConversion');
   });
 
