@@ -8,6 +8,7 @@ import { StandardHeaderConversionStrategy } from "./strategies/standard/header-s
 import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
+import { WorldAnvilDiceConversionStrategy } from "./strategies/worldanvil/dice-strategy";
 import { WorldAnvilChecklistConversionStrategy } from "./strategies/worldanvil/checklist-strategy";
 import { TableConversionStrategy } from "./strategies/table-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
@@ -61,6 +62,7 @@ export class StrategyChainFactory {
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy(),
+            new WorldAnvilDiceConversionStrategy()
             new WorldAnvilUnderlineConversionStrategy()
         ]);
 
