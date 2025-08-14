@@ -367,7 +367,7 @@ describe('Markdown to BBCode Converter', () => {
         test('should expose strategies for debugging', () => {
             const strategies = converter.getStrategies();
             
-            expect(strategies).toHaveLength(8);
+            expect(strategies).toHaveLength(9);
             expect(strategies.some(s => s instanceof StandardHeaderConversionStrategy)).toBeTruthy();
         });
 
@@ -430,6 +430,7 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategyTypes).toContain('LinkConversionStrategy');
             expect(strategyTypes).toContain('CodeConversionStrategy');
             expect(strategyTypes).toContain('WorldAnvilListConversionStrategy');
+            expect(strategyTypes).toContain('WorldAnvilTableConversionStrategy');
             expect(strategyTypes).toContain('QuoteConversionStrategy');
             expect(strategyTypes).toContain('StrikethroughConversionStrategy');
         });
@@ -442,6 +443,51 @@ describe('Markdown to BBCode Converter', () => {
             expect(imageIndex).toBeGreaterThanOrEqual(0);
             expect(linkIndex).toBeGreaterThanOrEqual(0);
             expect(imageIndex).toBeLessThan(linkIndex);
+        });
+    });
+
+    describe('Table Conversion', () => {
+        test('should convert markdown tables to BBCode format', () => {
+            const converter = new Converter();
+            const markdown = `| Name | Age | City |
+|------|-----|------|
+| John | 25  | NYC  |
+| Jane | 30  | LA   |`;
+
+            const result = converter.convert(markdown);
+            
+            expect(result).toContain('[table]');
+            expect(result).toContain('[tr]');
+            expect(result).toContain('[th]Name[/th]');
+            expect(result).toContain('[td]John[/td]');
+            expect(result).toContain('[/table]');
+        });
+
+        test('should convert markdown tables to WorldAnvil format', () => {
+            const converter = new Converter({ format: 'worldanvil' });
+            const markdown = `| Feature | Status |
+|---------|--------|
+| Tables  | Done   |`;
+
+            const result = converter.convert(markdown);
+            
+            expect(result).toContain('[table]');
+            expect(result).toContain('[th]Feature[/th]');
+            expect(result).toContain('[td]Tables[/td]');
+            expect(result).toContain('[/table]');
+        });
+
+        test('should preserve formatting within table cells', () => {
+            const converter = new Converter();
+            const markdown = `| **Bold** | *Italic* | \`Code\` |
+|----------|----------|---------|
+| Normal   | Text     | Here    |`;
+
+            const result = converter.convert(markdown);
+            
+            expect(result).toContain('[th][b]Bold[/b][/th]');
+            expect(result).toContain('[th][i]Italic[/i][/th]');
+            expect(result).toContain('[th][code]Code[/code][/th]');
         });
     });
 });
