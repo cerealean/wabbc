@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { WorldAnvilHeaderConversionStrategy } from '../../../src/strategies/worldanvil/header-strategy';
+import { WorldAnvilHeaderConversionStrategy } from '../../src/strategies/worldanvil/header-strategy';
 
 describe('WorldAnvilHeaderConversionStrategy', () => {
   const strategy = new WorldAnvilHeaderConversionStrategy();

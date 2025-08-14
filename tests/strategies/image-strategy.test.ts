@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { ImageConversionStrategy } from '../../../src/strategies/worldanvil/image-strategy';
+import { ImageConversionStrategy } from '../../src/strategies/worldanvil/image-strategy';
 
 describe('WorldAnvil ImageConversionStrategy', () => {
   const strategy = new ImageConversionStrategy();
