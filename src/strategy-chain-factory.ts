@@ -1,17 +1,18 @@
 import { CodeConversionStrategy } from "./strategies/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
-import { HorizontalRuleConversionStrategy } from "./strategies/horizontal-rule-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
 import { StandardChecklistConversionStrategy } from "./strategies/standard/checklist-strategy";
 import { StandardHeaderConversionStrategy } from "./strategies/standard/header-strategy";
+import { StandardHorizontalRuleConversionStrategy } from "./strategies/standard/horizontal-rule-strategy";
 import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
 import { WorldAnvilChecklistConversionStrategy } from "./strategies/worldanvil/checklist-strategy";
 import { TableConversionStrategy } from "./strategies/table-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
+import { WorldAnvilHorizontalRuleConversionStrategy } from "./strategies/worldanvil/horizontal-rule-strategy";
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
 
@@ -47,7 +48,7 @@ export class StrategyChainFactory {
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy(),
-            new HorizontalRuleConversionStrategy()
+            new StandardHorizontalRuleConversionStrategy()
         ]);
         
     private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> = 
@@ -62,7 +63,7 @@ export class StrategyChainFactory {
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy(),
-            new HorizontalRuleConversionStrategy()
+            new WorldAnvilHorizontalRuleConversionStrategy()
         ]);
 
     /**

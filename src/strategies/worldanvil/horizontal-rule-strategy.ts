@@ -1,22 +1,17 @@
-import { ConversionStrategy } from './conversion-strategy';
-import { EmphasisConversionStrategy } from './emphasis-strategy';
+import { ConversionStrategy } from '../conversion-strategy';
+import { EmphasisConversionStrategy } from '../emphasis-strategy';
 
 /**
- * Converts markdown horizontal rules to BBCode format
+ * Converts markdown horizontal rules to WorldAnvil BBCode format
  * GitHub markdown horizontal rules: --- or *** (3 or more) on a line by itself
  * WorldAnvil: converts to [hr]
- * Standard BBCode: leaves unchanged
  */
-export class HorizontalRuleConversionStrategy implements ConversionStrategy {
+export class WorldAnvilHorizontalRuleConversionStrategy implements ConversionStrategy {
   // Must run before emphasis strategy to avoid conflicts with *** patterns
   readonly runBefore = [EmphasisConversionStrategy] as const;
 
-  convert(text: string, format: 'bbcode' | 'worldanvil'): string {
-    // Only convert for WorldAnvil format, leave standard BBCode unchanged
-    if (format === 'worldanvil') {
-      return this.convertHorizontalRules(text);
-    }
-    return text;
+  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+    return this.convertHorizontalRules(text);
   }
 
   /**

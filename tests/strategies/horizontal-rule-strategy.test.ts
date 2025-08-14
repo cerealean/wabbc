@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { HorizontalRuleConversionStrategy } from '../../src/strategies/horizontal-rule-strategy';
+import { WorldAnvilHorizontalRuleConversionStrategy } from '../../src/strategies/worldanvil/horizontal-rule-strategy';
 
-describe('HorizontalRuleConversionStrategy', () => {
-  const strategy = new HorizontalRuleConversionStrategy();
+describe('WorldAnvilHorizontalRuleConversionStrategy', () => {
+  const strategy = new WorldAnvilHorizontalRuleConversionStrategy();
 
   test('should run before emphasis strategy', () => {
     expect((strategy as any).runBefore).toBeDefined();
@@ -108,46 +108,17 @@ Final paragraph.`;
     });
   });
 
-  describe('Standard BBCode format', () => {
-    test('should leave three dashes unchanged', () => {
+  describe('Conversion behavior (format-agnostic)', () => {
+    test('should convert three dashes regardless of format parameter', () => {
       const markdown = '---';
-      const result = strategy.convert(markdown, 'bbcode');
-      expect(result).toBe(markdown);
+      const result = strategy.convert(markdown, 'bbcode'); // Even with bbcode format
+      expect(result).toBe('[hr]');
     });
 
-    test('should leave three asterisks unchanged', () => {
+    test('should convert three asterisks regardless of format parameter', () => {
       const markdown = '***';
-      const result = strategy.convert(markdown, 'bbcode');
-      expect(result).toBe(markdown);
-    });
-
-    test('should leave longer horizontal rules unchanged', () => {
-      const markdown = '-----';
-      const result = strategy.convert(markdown, 'bbcode');
-      expect(result).toBe(markdown);
-    });
-
-    test('should leave horizontal rules with whitespace unchanged', () => {
-      const markdown = '  ***  ';
-      const result = strategy.convert(markdown, 'bbcode');
-      expect(result).toBe(markdown);
-    });
-
-    test('should leave complex markdown with horizontal rules unchanged', () => {
-      const markdown = `# Header
-
-Some text.
-
----
-
-More text.
-
-***
-
-Final text.`;
-      
-      const result = strategy.convert(markdown, 'bbcode');
-      expect(result).toBe(markdown);
+      const result = strategy.convert(markdown, 'bbcode'); // Even with bbcode format  
+      expect(result).toBe('[hr]');
     });
   });
 
