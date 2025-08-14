@@ -430,7 +430,7 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategyTypes).toContain('LinkConversionStrategy');
             expect(strategyTypes).toContain('CodeConversionStrategy');
             expect(strategyTypes).toContain('WorldAnvilListConversionStrategy');
-            expect(strategyTypes).toContain('WorldAnvilTableConversionStrategy');
+            expect(strategyTypes).toContain('TableConversionStrategy');
             expect(strategyTypes).toContain('QuoteConversionStrategy');
             expect(strategyTypes).toContain('StrikethroughConversionStrategy');
         });

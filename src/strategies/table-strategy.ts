@@ -1,15 +1,15 @@
-import { ConversionStrategy } from '../conversion-strategy';
+import { ConversionStrategy } from './conversion-strategy';
 
 /**
- * Converts markdown tables to WorldAnvil BBCode format
+ * Converts markdown tables to BBCode format
  */
-export class WorldAnvilTableConversionStrategy implements ConversionStrategy {
+export class TableConversionStrategy implements ConversionStrategy {
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
     return this.convertTables(text);
   }
 
   /**
-   * Convert markdown tables to WorldAnvil BBCode format
+   * Convert markdown tables to BBCode format
    */
   private convertTables(text: string): string {
     // Match markdown table pattern

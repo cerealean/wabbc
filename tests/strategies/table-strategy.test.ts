@@ -1,10 +1,10 @@
-import { StandardTableConversionStrategy } from '../../../src/strategies/standard/table-strategy';
+import { TableConversionStrategy } from '../../src/strategies/table-strategy';
 
-describe('StandardTableConversionStrategy', () => {
-  let strategy: StandardTableConversionStrategy;
+describe('TableConversionStrategy', () => {
+  let strategy: TableConversionStrategy;
 
   beforeEach(() => {
-    strategy = new StandardTableConversionStrategy();
+    strategy = new TableConversionStrategy();
   });
 
   describe('convert', () => {
@@ -32,6 +32,17 @@ describe('StandardTableConversionStrategy', () => {
 
       const result = strategy.convert(input, 'bbcode');
       expect(result).toBe(expected);
+    });
+
+    it('should work the same for worldanvil format', () => {
+      const input = `| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |`;
+
+      const bbcodeResult = strategy.convert(input, 'bbcode');
+      const worldanvilResult = strategy.convert(input, 'worldanvil');
+      
+      expect(bbcodeResult).toBe(worldanvilResult);
     });
 
     it('should handle tables with different alignment markers', () => {

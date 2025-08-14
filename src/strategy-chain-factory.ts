@@ -7,13 +7,12 @@ import { StandardChecklistConversionStrategy } from "./strategies/standard/check
 import { StandardHeaderConversionStrategy } from "./strategies/standard/header-strategy";
 import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
-import { StandardTableConversionStrategy } from "./strategies/standard/table-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
 import { WorldAnvilChecklistConversionStrategy } from "./strategies/worldanvil/checklist-strategy";
+import { TableConversionStrategy } from "./strategies/table-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
-import { WorldAnvilTableConversionStrategy } from "./strategies/worldanvil/table-strategy";
 
 /**
  * Factory for creating ordered strategy chains based on dependencies.
@@ -44,7 +43,7 @@ export class StrategyChainFactory {
             new CodeConversionStrategy(),
             new StandardChecklistConversionStrategy(),
             new StandardListConversionStrategy(),
-            new StandardTableConversionStrategy(),
+            new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy()
         ]);
@@ -58,7 +57,7 @@ export class StrategyChainFactory {
             new CodeConversionStrategy(),
             new WorldAnvilChecklistConversionStrategy(),
             new WorldAnvilListConversionStrategy(),
-            new WorldAnvilTableConversionStrategy(),
+            new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy()
         ]);
