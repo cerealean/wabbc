@@ -203,6 +203,34 @@ describe('Markdown to BBCode Converter', () => {
             expect(converter.convert(markdown)).toBe(expected);
         });
 
+        test('should convert line breaks to WorldAnvil format', () => {
+            const text1 = faker.lorem.words(3);
+            const text2 = faker.lorem.words(2);
+            const text3 = faker.lorem.words(3);
+            
+            // Test two spaces + newline
+            const spacesMarkdown = `${text1}  \n${text2}`;
+            expect(converter.convert(spacesMarkdown)).toBe(`${text1}[br]${text2}`);
+            
+            // Test backslash + newline
+            const backslashMarkdown = `${text2}\\\n${text3}`;
+            expect(converter.convert(backslashMarkdown)).toBe(`${text2}[br]${text3}`);
+        });
+
+        test('should not convert line breaks for standard BBCode format', () => {
+            const standardConverter = new Converter({ format: 'bbcode' });
+            const text1 = faker.lorem.words(3);
+            const text2 = faker.lorem.words(2);
+            
+            // Test two spaces + newline - should remain unchanged
+            const spacesMarkdown = `${text1}  \n${text2}`;
+            expect(standardConverter.convert(spacesMarkdown)).toBe(spacesMarkdown);
+            
+            // Test backslash + newline - should remain unchanged
+            const backslashMarkdown = `${text1}\\\n${text2}`;
+            expect(standardConverter.convert(backslashMarkdown)).toBe(backslashMarkdown);
+        });
+
         test('should convert underline tags to WorldAnvil format', () => {
             const text = faker.lorem.words(2);
             const markdown = `<ins>${text}</ins>`;
@@ -475,6 +503,7 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategyTypes).toContain('TableConversionStrategy');
             expect(strategyTypes).toContain('QuoteConversionStrategy');
             expect(strategyTypes).toContain('StrikethroughConversionStrategy');
+            expect(strategyTypes).toContain('LineBreakConversionStrategy');
         });
 
         test('should ensure image strategy runs before link strategy in WorldAnvil format', () => {
