@@ -15,4 +15,10 @@ export interface ConversionStrategy {
    * Used for automatic dependency-based ordering
    */
   readonly runAfter?: readonly (new () => ConversionStrategy)[];
+  
+  /**
+   * Optional array of strategy constructors that this strategy must run before
+   * Used for automatic dependency-based ordering
+   */
+  readonly runBefore?: readonly (new () => ConversionStrategy)[];
 }

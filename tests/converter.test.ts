@@ -3,6 +3,7 @@ import {
 } from '../src/converter';
 import { StandardHeaderConversionStrategy } from '../src/strategies/standard/header-strategy';
 import { ImageConversionStrategy as StandardImageConversionStrategy } from '../src/strategies/standard/image-strategy';
+import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../src/strategies/worldanvil/image-strategy';
 import { LinkConversionStrategy } from '../src/strategies/link-strategy';
 import { faker } from '@faker-js/faker';
 
@@ -400,6 +401,16 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategyTypes).toContain('QuoteConversionStrategy');
             expect(strategyTypes).toContain('StrikethroughConversionStrategy');
         });
+
+        test('should ensure image strategy runs before link strategy', () => {
+            const strategies = converter.getStrategies();
+            const imageIndex = strategies.findIndex(s => s instanceof StandardImageConversionStrategy);
+            const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);
+            
+            expect(imageIndex).toBeGreaterThanOrEqual(0);
+            expect(linkIndex).toBeGreaterThanOrEqual(0);
+            expect(imageIndex).toBeLessThan(linkIndex);
+        });
     });
 
     describe('Converter Strategy Management - WorldAnvil', () => {
@@ -421,6 +432,16 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategyTypes).toContain('WorldAnvilListConversionStrategy');
             expect(strategyTypes).toContain('QuoteConversionStrategy');
             expect(strategyTypes).toContain('StrikethroughConversionStrategy');
+        });
+
+        test('should ensure image strategy runs before link strategy in WorldAnvil format', () => {
+            const strategies = converter.getStrategies();
+            const imageIndex = strategies.findIndex(s => s instanceof WorldAnvilImageConversionStrategy);
+            const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);
+            
+            expect(imageIndex).toBeGreaterThanOrEqual(0);
+            expect(linkIndex).toBeGreaterThanOrEqual(0);
+            expect(imageIndex).toBeLessThan(linkIndex);
         });
     });
 });

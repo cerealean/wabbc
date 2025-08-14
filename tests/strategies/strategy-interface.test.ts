@@ -37,8 +37,17 @@ describe('Strategy Interface and Dependencies', () => {
     const strategyConstructors = new Set(strategies.map(s => s.constructor));
     
     strategies.forEach(strategy => {
+      // Test runAfter dependencies
       if ((strategy as any).runAfter) {
         const dependencies = (strategy as any).runAfter as (new () => ConversionStrategy)[];
+        dependencies.forEach(dep => {
+          expect(strategyConstructors.has(dep)).toBeTruthy(); 
+        });
+      }
+      
+      // Test runBefore dependencies
+      if ((strategy as any).runBefore) {
+        const dependencies = (strategy as any).runBefore as (new () => ConversionStrategy)[];
         dependencies.forEach(dep => {
           expect(strategyConstructors.has(dep)).toBeTruthy(); 
         });
@@ -62,5 +71,16 @@ describe('Strategy Interface and Dependencies', () => {
       'WorldAnvilListConversionStrategy'
     ];
     expect(strategyTypes).toEqual(expectedTypes);
+  });
+
+  test('should have image strategies with runBefore LinkConversionStrategy', () => {
+    const standardImageStrategy = strategies.find(s => s.constructor === StandardImageConversionStrategy);
+    const worldAnvilImageStrategy = strategies.find(s => s.constructor === WorldAnvilImageConversionStrategy);
+    
+    expect(standardImageStrategy).toBeDefined();
+    expect(worldAnvilImageStrategy).toBeDefined();
+    
+    expect((standardImageStrategy as any).runBefore).toContain(LinkConversionStrategy);
+    expect((worldAnvilImageStrategy as any).runBefore).toContain(LinkConversionStrategy);
   });
 });

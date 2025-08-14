@@ -73,6 +73,16 @@ export class StrategyChainFactory {
             dependencyMap.set(constructor, dependencies);
         }
 
+        // Process runBefore dependencies by adding reverse dependencies
+        for (const strategy of strategies) {
+            if (strategy.runBefore) {
+                for (const beforeStrategy of strategy.runBefore) {
+                    const existingDeps = dependencyMap.get(beforeStrategy) || [];
+                    dependencyMap.set(beforeStrategy, [...existingDeps, strategy.constructor]);
+                }
+            }
+        }
+
         // Validate dependencies exist
         for (const [strategyConstructor, dependencies] of dependencyMap) {
             for (const dep of dependencies) {
