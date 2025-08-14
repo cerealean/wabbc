@@ -4,8 +4,8 @@ import { StrikethroughConversionStrategy } from '../../src/strategies/strikethro
 describe('StrikethroughConversionStrategy', () => {
   const strategy = new StrikethroughConversionStrategy();
 
-  test('should have correct name', () => {
-    expect(strategy.name).toBe('StrikethroughConversion');
+  test('should have no dependencies', () => {
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   test('should convert strikethrough text', () => {

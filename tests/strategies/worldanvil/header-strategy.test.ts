@@ -4,8 +4,8 @@ import { WorldAnvilHeaderConversionStrategy } from '../../../src/strategies/worl
 describe('WorldAnvilHeaderConversionStrategy', () => {
   const strategy = new WorldAnvilHeaderConversionStrategy();
 
-  test('should have correct name', () => {
-    expect(strategy.name).toBe('WorldAnvilHeaderConversion');
+  test('should have no dependencies', () => {
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   test('should convert H1 headers for WorldAnvil', () => {

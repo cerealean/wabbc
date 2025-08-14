@@ -4,8 +4,8 @@ import { WorldAnvilListConversionStrategy } from '../../../src/strategies/worlda
 describe('WorldAnvilListConversionStrategy', () => {
   const strategy = new WorldAnvilListConversionStrategy();
 
-  test('should have correct name', () => {
-    expect(strategy.name).toBe('WorldAnvilListConversion');
+  test('should have no dependencies', () => {
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   describe('WorldAnvil format', () => {

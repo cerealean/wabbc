@@ -4,8 +4,6 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown blockquotes to BBCode format
  */
 export class QuoteConversionStrategy implements ConversionStrategy {
-  readonly name = 'QuoteConversion';
-
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
     // Block quotes
     text = text.replace(/^>\s*(.+)$/gm, '[quote]$1[/quote]');

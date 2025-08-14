@@ -4,8 +4,8 @@ import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 describe('QuoteConversionStrategy', () => {
   const strategy = new QuoteConversionStrategy();
 
-  test('should have correct name', () => {
-    expect(strategy.name).toBe('QuoteConversion');
+  test('should have no dependencies', () => {
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   test('should convert block quotes', () => {

@@ -4,8 +4,8 @@ import { EmphasisConversionStrategy } from '../../src/strategies/emphasis-strate
 describe('EmphasisConversionStrategy', () => {
   const strategy = new EmphasisConversionStrategy();
 
-  test('should have correct name', () => {
-    expect(strategy.name).toBe('EmphasisConversion');
+  test('should have no dependencies', () => {
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   test('should convert bold text with **', () => {

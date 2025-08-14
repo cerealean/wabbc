@@ -4,8 +4,8 @@ import { StandardHeaderConversionStrategy } from '../../../src/strategies/standa
 describe('StandardHeaderConversionStrategy', () => {
   const strategy = new StandardHeaderConversionStrategy();
 
-  test('should have correct name', () => {
-    expect(strategy.name).toBe('StandardHeaderConversion');
+  test('should have no dependencies', () => {
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   test('should convert H1 headers for traditional BBCode', () => {

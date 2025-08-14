@@ -21,8 +21,7 @@ import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-s
  * To add a new strategy with dependencies:
  * ```typescript
  * export class MyStrategy implements ConversionStrategy {
- *   readonly name = 'MyStrategy';
- *   readonly runAfter = ['ImageConversion', 'LinkConversion'] as const;
+ *   readonly runAfter = [ImageConversionStrategy, LinkConversionStrategy] as const;
  *   
  *   convert(text: string, format: 'bbcode' | 'worldanvil'): string {
  *     // Implementation
@@ -59,55 +58,57 @@ export class StrategyChainFactory {
      * Sort strategies based on their dependencies using topological sort
      */
     private static sortStrategiesByDependencies(strategies: ConversionStrategy[]): ConversionStrategy[] {
-        const strategyMap = new Map<string, ConversionStrategy>();
-        const dependencyMap = new Map<string, string[]>();
-        const visited = new Set<string>();
-        const visiting = new Set<string>();
+        const strategyMap = new Map<Function, ConversionStrategy>();
+        const dependencyMap = new Map<Function, Function[]>();
+        const visited = new Set<Function>();
+        const visiting = new Set<Function>();
         const result: ConversionStrategy[] = [];
 
         // Build maps
         for (const strategy of strategies) {
-            strategyMap.set(strategy.name, strategy);
-            dependencyMap.set(strategy.name, strategy.runAfter ? [...strategy.runAfter] : []);
+            const constructor = strategy.constructor;
+            strategyMap.set(constructor, strategy);
+            const dependencies = strategy.runAfter ? [...strategy.runAfter] : [];
+            dependencyMap.set(constructor, dependencies);
         }
 
         // Validate dependencies exist
-        for (const [strategyName, dependencies] of dependencyMap) {
+        for (const [strategyConstructor, dependencies] of dependencyMap) {
             for (const dep of dependencies) {
                 if (!strategyMap.has(dep)) {
-                    throw new Error(`Strategy '${strategyName}' depends on '${dep}', but '${dep}' is not in the strategy list`);
+                    throw new Error(`Strategy '${strategyConstructor.name}' depends on '${dep.name}', but '${dep.name}' is not in the strategy list`);
                 }
             }
         }
 
         // Topological sort using DFS
-        const visit = (strategyName: string): void => {
-            if (visiting.has(strategyName)) {
-                throw new Error(`Circular dependency detected involving strategy '${strategyName}'`);
+        const visit = (strategyConstructor: Function): void => {
+            if (visiting.has(strategyConstructor)) {
+                throw new Error(`Circular dependency detected involving strategy '${strategyConstructor.name}'`);
             }
-            if (visited.has(strategyName)) {
+            if (visited.has(strategyConstructor)) {
                 return;
             }
 
-            visiting.add(strategyName);
+            visiting.add(strategyConstructor);
             
-            const dependencies = dependencyMap.get(strategyName) || [];
+            const dependencies = dependencyMap.get(strategyConstructor) || [];
             for (const dep of dependencies) {
                 visit(dep);
             }
             
-            visiting.delete(strategyName);
-            visited.add(strategyName);
+            visiting.delete(strategyConstructor);
+            visited.add(strategyConstructor);
             
-            const strategy = strategyMap.get(strategyName);
+            const strategy = strategyMap.get(strategyConstructor);
             if (strategy) {
                 result.push(strategy);
             }
         };
 
         // Visit all strategies
-        for (const strategyName of strategyMap.keys()) {
-            visit(strategyName);
+        for (const strategyConstructor of strategyMap.keys()) {
+            visit(strategyConstructor);
         }
 
         return result;

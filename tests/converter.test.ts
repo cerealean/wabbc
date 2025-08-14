@@ -1,6 +1,9 @@
 import { 
     Converter
 } from '../src/converter';
+import { StandardHeaderConversionStrategy } from '../src/strategies/standard/header-strategy';
+import { ImageConversionStrategy } from '../src/strategies/image-strategy';
+import { LinkConversionStrategy } from '../src/strategies/link-strategy';
 import { faker } from '@faker-js/faker';
 
 describe('Markdown to BBCode Converter', () => {
@@ -364,13 +367,13 @@ describe('Markdown to BBCode Converter', () => {
             const strategies = converter.getStrategies();
             
             expect(strategies).toHaveLength(8);
-            expect(strategies.some(s => s.name === 'StandardHeaderConversion')).toBeTruthy();
+            expect(strategies.some(s => s instanceof StandardHeaderConversionStrategy)).toBeTruthy();
         });
 
-        test('should have LinkConversion after ImageConversion due to dependency', () => {
+        test('should have LinkConversionStrategy after ImageConversionStrategy due to dependency', () => {
             const strategies = converter.getStrategies();
-            const imageIndex = strategies.findIndex(s => s.name === 'ImageConversion');
-            const linkIndex = strategies.findIndex(s => s.name === 'LinkConversion');
+            const imageIndex = strategies.findIndex(s => s instanceof ImageConversionStrategy);
+            const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);
             
             expect(imageIndex).toBeGreaterThanOrEqual(0);
             expect(linkIndex).toBeGreaterThanOrEqual(0);
@@ -387,16 +390,16 @@ describe('Markdown to BBCode Converter', () => {
 
         test('should have all expected strategies', () => {
             const strategies = converter.getStrategies();
-            const strategyNames = strategies.map(s => s.name);
+            const strategyTypes = strategies.map(s => s.constructor.name);
             
-            expect(strategyNames).toContain('StandardHeaderConversion');
-            expect(strategyNames).toContain('EmphasisConversion');
-            expect(strategyNames).toContain('ImageConversion');
-            expect(strategyNames).toContain('LinkConversion');
-            expect(strategyNames).toContain('CodeConversion');
-            expect(strategyNames).toContain('StandardListConversion');
-            expect(strategyNames).toContain('QuoteConversion');
-            expect(strategyNames).toContain('StrikethroughConversion');
+            expect(strategyTypes).toContain('StandardHeaderConversionStrategy');
+            expect(strategyTypes).toContain('EmphasisConversionStrategy');
+            expect(strategyTypes).toContain('ImageConversionStrategy');
+            expect(strategyTypes).toContain('LinkConversionStrategy');
+            expect(strategyTypes).toContain('CodeConversionStrategy');
+            expect(strategyTypes).toContain('StandardListConversionStrategy');
+            expect(strategyTypes).toContain('QuoteConversionStrategy');
+            expect(strategyTypes).toContain('StrikethroughConversionStrategy');
         });
     });
 
@@ -409,16 +412,16 @@ describe('Markdown to BBCode Converter', () => {
 
         test('should have all expected strategies for WorldAnvil format', () => {
             const strategies = converter.getStrategies();
-            const strategyNames = strategies.map(s => s.name);
+            const strategyTypes = strategies.map(s => s.constructor.name);
             
-            expect(strategyNames).toContain('WorldAnvilHeaderConversion');
-            expect(strategyNames).toContain('EmphasisConversion');
-            expect(strategyNames).toContain('ImageConversion');
-            expect(strategyNames).toContain('LinkConversion');
-            expect(strategyNames).toContain('CodeConversion');
-            expect(strategyNames).toContain('WorldAnvilListConversion');
-            expect(strategyNames).toContain('QuoteConversion');
-            expect(strategyNames).toContain('StrikethroughConversion');
+            expect(strategyTypes).toContain('WorldAnvilHeaderConversionStrategy');
+            expect(strategyTypes).toContain('EmphasisConversionStrategy');
+            expect(strategyTypes).toContain('ImageConversionStrategy');
+            expect(strategyTypes).toContain('LinkConversionStrategy');
+            expect(strategyTypes).toContain('CodeConversionStrategy');
+            expect(strategyTypes).toContain('WorldAnvilListConversionStrategy');
+            expect(strategyTypes).toContain('QuoteConversionStrategy');
+            expect(strategyTypes).toContain('StrikethroughConversionStrategy');
         });
     });
 });

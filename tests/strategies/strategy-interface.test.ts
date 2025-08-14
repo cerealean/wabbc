@@ -24,57 +24,46 @@ describe('Strategy Interface and Dependencies', () => {
     new StrikethroughConversionStrategy()
   ];
 
-  test('should have descriptive names', () => {
-    strategies.forEach(strategy => {
-      expect(strategy.name).toBeTruthy();
-      expect(typeof strategy.name).toBe('string');
-      expect(strategy.name.length).toBeGreaterThan(0);
-      expect(strategy.name).toMatch(/Conversion$/);
-    });
-  });
-
   test('should all implement ConversionStrategy interface', () => {
     strategies.forEach(strategy => {
       expect(strategy).toHaveProperty('convert');
-      expect(strategy).toHaveProperty('name');
       expect(typeof strategy.convert).toBe('function');
-      expect(typeof strategy.name).toBe('string');
     });
   });
 
   test('should have valid dependencies', () => {
-    const strategyNames = new Set(strategies.map(s => s.name));
+    const strategyConstructors = new Set(strategies.map(s => s.constructor));
     
     strategies.forEach(strategy => {
       if ((strategy as any).runAfter) {
-        const dependencies = (strategy as any).runAfter as string[];
+        const dependencies = (strategy as any).runAfter as (new () => ConversionStrategy)[];
         dependencies.forEach(dep => {
-          expect(strategyNames.has(dep)).toBeTruthy(); 
+          expect(strategyConstructors.has(dep)).toBeTruthy(); 
         });
       }
     });
   });
 
-  test('should have LinkConversion depend on ImageConversion', () => {
-    const linkStrategy = strategies.find(s => s.name === 'LinkConversion');
+  test('should have LinkConversionStrategy depend on ImageConversionStrategy', () => {
+    const linkStrategy = strategies.find(s => s instanceof LinkConversionStrategy);
     expect(linkStrategy).toBeDefined();
-    expect((linkStrategy as any).runAfter).toEqual(['ImageConversion']);
+    expect((linkStrategy as any).runAfter).toEqual([ImageConversionStrategy]);
   });
 
-  test('should have expected strategy names', () => {
-    const strategyNames = strategies.map(s => s.name).sort();
-    const expectedNames = [
-      'CodeConversion',
-      'EmphasisConversion',
-      'ImageConversion',
-      'LinkConversion',
-      'QuoteConversion',
-      'StandardHeaderConversion',
-      'StandardListConversion',
-      'StrikethroughConversion',
-      'WorldAnvilHeaderConversion',
-      'WorldAnvilListConversion'
+  test('should have expected strategy types', () => {
+    const strategyTypes = strategies.map(s => s.constructor.name).sort();
+    const expectedTypes = [
+      'CodeConversionStrategy',
+      'EmphasisConversionStrategy',
+      'ImageConversionStrategy',
+      'LinkConversionStrategy',
+      'QuoteConversionStrategy',
+      'StandardHeaderConversionStrategy',
+      'StandardListConversionStrategy',
+      'StrikethroughConversionStrategy',
+      'WorldAnvilHeaderConversionStrategy',
+      'WorldAnvilListConversionStrategy'
     ];
-    expect(strategyNames).toEqual(expectedNames);
+    expect(strategyTypes).toEqual(expectedTypes);
   });
 });

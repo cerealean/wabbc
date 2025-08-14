@@ -11,13 +11,8 @@ export interface ConversionStrategy {
   convert(text: string, format: 'bbcode' | 'worldanvil'): string;
   
   /**
-   * Name of this strategy for debugging and dependency resolution
-   */
-  readonly name: string;
-  
-  /**
-   * Optional array of strategy names that this strategy must run after
+   * Optional array of strategy constructors that this strategy must run after
    * Used for automatic dependency-based ordering
    */
-  readonly runAfter?: readonly string[];
+  readonly runAfter?: readonly (new () => ConversionStrategy)[];
 }

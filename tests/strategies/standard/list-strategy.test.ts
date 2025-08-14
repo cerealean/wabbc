@@ -4,8 +4,8 @@ import { StandardListConversionStrategy } from '../../../src/strategies/standard
 describe('StandardListConversionStrategy', () => {
   const strategy = new StandardListConversionStrategy();
 
-  test('should have correct name', () => {
-    expect(strategy.name).toBe('StandardListConversion');
+  test('should have no dependencies', () => {
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   describe('Traditional BBCode format', () => {

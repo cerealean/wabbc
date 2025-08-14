@@ -4,8 +4,7 @@ import { ImageConversionStrategy } from '../../src/strategies/image-strategy';
 describe('ImageConversionStrategy', () => {
   const strategy = new ImageConversionStrategy();
 
-  test('should have correct name and no dependencies', () => {
-    expect(strategy.name).toBe('ImageConversion');
+  test('should have no dependencies', () => {
     expect((strategy as any).runAfter).toBeUndefined();
   });
 

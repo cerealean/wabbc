@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { LinkConversionStrategy } from '../../src/strategies/link-strategy';
+import { ImageConversionStrategy } from '../../src/strategies/image-strategy';
 
 describe('LinkConversionStrategy', () => {
   const strategy = new LinkConversionStrategy();
 
-  test('should have correct name and dependencies', () => {
-    expect(strategy.name).toBe('LinkConversion');
-    expect(strategy.runAfter).toEqual(['ImageConversion']);
+  test('should have correct dependencies', () => {
+    expect(strategy.runAfter).toEqual([ImageConversionStrategy]);
   });
 
   test('should convert markdown links', () => {
