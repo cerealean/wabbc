@@ -14,6 +14,7 @@ import { TableConversionStrategy } from "./strategies/table-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
+import { SuperscriptConversionStrategy } from "./strategies/worldanvil/superscript-strategy";
 import { WorldAnvilSubscriptConversionStrategy } from "./strategies/worldanvil/subscript-strategy";
 import { WorldAnvilUnderlineConversionStrategy } from "./strategies/worldanvil/underline-strategy";
 
@@ -63,6 +64,7 @@ export class StrategyChainFactory {
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy(),
+            new SuperscriptConversionStrategy()
             new WorldAnvilSubscriptConversionStrategy(),
             new WorldAnvilDiceConversionStrategy(),
             new WorldAnvilUnderlineConversionStrategy()
