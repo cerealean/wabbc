@@ -1,13 +1,14 @@
 import { CodeConversionStrategy } from "./strategies/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
-import { ImageConversionStrategy } from "./strategies/image-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
 import { StandardHeaderConversionStrategy } from "./strategies/standard/header-strategy";
+import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
+import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
 
 /**
@@ -34,7 +35,7 @@ export class StrategyChainFactory {
         StrategyChainFactory.sortStrategiesByDependencies([
             new StandardHeaderConversionStrategy(),
             new EmphasisConversionStrategy(),
-            new ImageConversionStrategy(),
+            new StandardImageConversionStrategy(),
             new LinkConversionStrategy(),
             new CodeConversionStrategy(),
             new StandardListConversionStrategy(),
@@ -46,7 +47,7 @@ export class StrategyChainFactory {
         StrategyChainFactory.sortStrategiesByDependencies([
             new WorldAnvilHeaderConversionStrategy(),
             new EmphasisConversionStrategy(),
-            new ImageConversionStrategy(),
+            new WorldAnvilImageConversionStrategy(),
             new LinkConversionStrategy(),
             new CodeConversionStrategy(),
             new WorldAnvilListConversionStrategy(),

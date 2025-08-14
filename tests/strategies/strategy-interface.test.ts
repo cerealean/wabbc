@@ -1,6 +1,7 @@
 import { ConversionStrategy } from '../../src/strategies/conversion-strategy';
 import { EmphasisConversionStrategy } from '../../src/strategies/emphasis-strategy';
-import { ImageConversionStrategy } from '../../src/strategies/image-strategy';
+import { ImageConversionStrategy as StandardImageConversionStrategy } from '../../src/strategies/standard/image-strategy';
+import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../../src/strategies/worldanvil/image-strategy';
 import { LinkConversionStrategy } from '../../src/strategies/link-strategy';
 import { CodeConversionStrategy } from '../../src/strategies/code-strategy';
 import { StandardHeaderConversionStrategy } from '../../src/strategies/standard/header-strategy';
@@ -15,7 +16,8 @@ describe('Strategy Interface and Dependencies', () => {
     new StandardHeaderConversionStrategy(),
     new WorldAnvilHeaderConversionStrategy(),
     new EmphasisConversionStrategy(),
-    new ImageConversionStrategy(),
+    new StandardImageConversionStrategy(),
+    new WorldAnvilImageConversionStrategy(),
     new LinkConversionStrategy(),
     new CodeConversionStrategy(),
     new StandardListConversionStrategy(),
@@ -44,18 +46,13 @@ describe('Strategy Interface and Dependencies', () => {
     });
   });
 
-  test('should have LinkConversionStrategy depend on ImageConversionStrategy', () => {
-    const linkStrategy = strategies.find(s => s instanceof LinkConversionStrategy);
-    expect(linkStrategy).toBeDefined();
-    expect((linkStrategy as any).runAfter).toEqual([ImageConversionStrategy]);
-  });
-
   test('should have expected strategy types', () => {
     const strategyTypes = strategies.map(s => s.constructor.name).sort();
     const expectedTypes = [
       'CodeConversionStrategy',
       'EmphasisConversionStrategy',
-      'ImageConversionStrategy',
+      'ImageConversionStrategy', // Standard version
+      'ImageConversionStrategy', // WorldAnvil version  
       'LinkConversionStrategy',
       'QuoteConversionStrategy',
       'StandardHeaderConversionStrategy',

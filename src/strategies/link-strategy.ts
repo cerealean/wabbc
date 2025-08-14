@@ -1,12 +1,9 @@
 import { ConversionStrategy } from './conversion-strategy';
-import { ImageConversionStrategy } from './image-strategy';
 
 /**
  * Converts markdown links to BBCode format
  */
 export class LinkConversionStrategy implements ConversionStrategy {
-  readonly runAfter = [ImageConversionStrategy] as const;
-
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
     // [text](url) - use negative lookbehind to avoid matching images
     text = text.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, '[url=$2]$1[/url]');

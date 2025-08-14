@@ -2,7 +2,7 @@ import {
     Converter
 } from '../src/converter';
 import { StandardHeaderConversionStrategy } from '../src/strategies/standard/header-strategy';
-import { ImageConversionStrategy } from '../src/strategies/image-strategy';
+import { ImageConversionStrategy as StandardImageConversionStrategy } from '../src/strategies/standard/image-strategy';
 import { LinkConversionStrategy } from '../src/strategies/link-strategy';
 import { faker } from '@faker-js/faker';
 
@@ -370,14 +370,13 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategies.some(s => s instanceof StandardHeaderConversionStrategy)).toBeTruthy();
         });
 
-        test('should have LinkConversionStrategy after ImageConversionStrategy due to dependency', () => {
+        test('should have both image and link strategies', () => {
             const strategies = converter.getStrategies();
-            const imageIndex = strategies.findIndex(s => s instanceof ImageConversionStrategy);
+            const imageIndex = strategies.findIndex(s => s instanceof StandardImageConversionStrategy);
             const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);
             
             expect(imageIndex).toBeGreaterThanOrEqual(0);
             expect(linkIndex).toBeGreaterThanOrEqual(0);
-            expect(linkIndex).toBeGreaterThan(imageIndex);
         });
 
         test('should return a copy of strategies array', () => {

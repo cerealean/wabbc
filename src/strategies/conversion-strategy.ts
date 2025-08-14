@@ -8,7 +8,7 @@ export interface ConversionStrategy {
    * @param format - The target format ('bbcode' or 'worldanvil')
    * @returns The converted text
    */
-  convert(text: string, format: 'bbcode' | 'worldanvil'): string;
+  convert(text: string, format?: 'bbcode' | 'worldanvil'): string;
   
   /**
    * Optional array of strategy constructors that this strategy must run after
