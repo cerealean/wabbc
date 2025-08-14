@@ -18,7 +18,7 @@
     "test": "jest",
     "test:async": "jest --maxWorkers=50% --workerThreads",
     "test:parallel": "jest --maxWorkers=100%",
-    "test:fast": "jest --maxWorkers=50% --bail --passWithNoTests",
+    "test:fast": "jest --maxWorkers=50% --workerThreads --bail --passWithNoTests",
     "test:watch": "jest --watch --maxWorkers=25%",
     "test:watch:async": "jest --watch --maxWorkers=50% --workerThreads",
     "test:coverage": "jest --coverage --maxWorkers=50%",

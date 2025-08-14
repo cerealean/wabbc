@@ -64,7 +64,7 @@ export class StrategyChainFactory {
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy(),
-            new SuperscriptConversionStrategy()
+            new SuperscriptConversionStrategy(),
             new WorldAnvilSubscriptConversionStrategy(),
             new WorldAnvilDiceConversionStrategy(),
             new WorldAnvilUnderlineConversionStrategy()
