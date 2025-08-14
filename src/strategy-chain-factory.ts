@@ -1,3 +1,4 @@
+import { ChecklistConversionStrategy } from "./strategies/checklist-strategy";
 import { CodeConversionStrategy } from "./strategies/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
@@ -40,6 +41,7 @@ export class StrategyChainFactory {
             new StandardImageConversionStrategy(),
             new LinkConversionStrategy(),
             new CodeConversionStrategy(),
+            new ChecklistConversionStrategy(),
             new StandardListConversionStrategy(),
             new StandardTableConversionStrategy(),
             new QuoteConversionStrategy(),
@@ -53,6 +55,7 @@ export class StrategyChainFactory {
             new WorldAnvilImageConversionStrategy(),
             new LinkConversionStrategy(),
             new CodeConversionStrategy(),
+            new ChecklistConversionStrategy(),
             new WorldAnvilListConversionStrategy(),
             new WorldAnvilTableConversionStrategy(),
             new QuoteConversionStrategy(),
