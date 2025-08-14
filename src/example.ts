@@ -1,6 +1,28 @@
 import { Converter } from './main';
 
-// Example markdown
+// Test superscript conversion
+console.log('=== SUPERSCRIPT CONVERSION TESTS ===');
+
+const testCases = [
+    'Simple superscript: x<sup>2</sup>',
+    'Einstein: E = mc<sup>2</sup>',
+    'Multiple: x<sup>2</sup> + y<sup>3</sup>',
+    'With text: H<sup>2</sup>O is water',
+    'Empty: <sup></sup>',
+    'Complex: x<sup>2y+1</sup>',
+    'Mixed case: <SUP>should not convert</SUP>'
+];
+
+const bbcodeConverter = new Converter();
+const worldAnvilConverter = new Converter({ format: 'worldanvil' });
+
+for (const testCase of testCases) {
+    console.log(`\nInput: ${testCase}`);
+    console.log(`BBCode: ${bbcodeConverter.convert(testCase)}`);
+    console.log(`WorldAnvil: ${worldAnvilConverter.convert(testCase)}`);
+}
+
+// Original example markdown with superscript
 const markdown = `
 # Main Header
 
@@ -32,13 +54,11 @@ console.log("Hello, world!");
 > that spans multiple lines
 
 ~~Strikethrough text~~
+
+Testing superscript: x<sup>2</sup> + y<sup>3</sup> = z<sup>5</sup>
 `;
 
-console.log('=== CLASS-BASED APPROACH ===');
-
-// Create converters for each format
-const bbcodeConverter = new Converter();
-const worldAnvilConverter = new Converter({ format: 'worldanvil' });
+console.log('\n=== EXAMPLE WITH SUPERSCRIPT ===');
 
 console.log('--- Traditional BBCode ---');
 console.log(bbcodeConverter.convert(markdown));
