@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { SuperscriptConversionStrategy } from '../../src/strategies/superscript-strategy';
+import { SuperscriptConversionStrategy } from '../../src/strategies/worldanvil/superscript-strategy';
 
 describe('SuperscriptConversionStrategy', () => {
   const strategy = new SuperscriptConversionStrategy();
@@ -9,7 +9,7 @@ describe('SuperscriptConversionStrategy', () => {
     expect((strategy as any).runBefore).toBeUndefined();
   });
 
-  describe('WorldAnvil format', () => {
+  describe('WorldAnvil format conversion', () => {
     test('should convert simple superscript tags', () => {
       const text = faker.lorem.word();
       const markdown = `Text with <sup>${text}</sup> superscript`;
@@ -62,29 +62,20 @@ describe('SuperscriptConversionStrategy', () => {
       const result = strategy.convert(markdown, 'worldanvil');
       expect(result).toBe(`End with [sup]${text}[/sup]`);
     });
-  });
 
-  describe('Standard BBCode format', () => {
-    test('should not convert superscript tags for standard BBCode', () => {
+    test('should convert regardless of format parameter since this is WorldAnvil-specific strategy', () => {
       const text = faker.lorem.word();
       const markdown = `Text with <sup>${text}</sup> superscript`;
-      const result = strategy.convert(markdown, 'bbcode');
-      expect(result).toBe(markdown); // Should remain unchanged
-    });
-
-    test('should not convert multiple superscript tags for standard BBCode', () => {
-      const text1 = faker.lorem.word();
-      const text2 = faker.lorem.word();
-      const markdown = `First <sup>${text1}</sup> and second <sup>${text2}</sup>`;
-      const result = strategy.convert(markdown, 'bbcode');
-      expect(result).toBe(markdown); // Should remain unchanged
-    });
-
-    test('should handle default format parameter (bbcode)', () => {
-      const text = faker.lorem.word();
-      const markdown = `Text with <sup>${text}</sup> superscript`;
-      const result = strategy.convert(markdown); // No format specified, defaults to bbcode
-      expect(result).toBe(markdown); // Should remain unchanged
+      
+      // Strategy always converts since it's WorldAnvil-specific
+      const resultWorldAnvil = strategy.convert(markdown, 'worldanvil');
+      const resultBBCode = strategy.convert(markdown, 'bbcode');
+      const resultDefault = strategy.convert(markdown);
+      
+      const expected = `Text with [sup]${text}[/sup] superscript`;
+      expect(resultWorldAnvil).toBe(expected);
+      expect(resultBBCode).toBe(expected);
+      expect(resultDefault).toBe(expected);
     });
   });
 

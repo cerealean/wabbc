@@ -7,11 +7,11 @@ import { StandardHeaderConversionStrategy } from "./strategies/standard/header-s
 import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
-import { SuperscriptConversionStrategy } from "./strategies/superscript-strategy";
 import { TableConversionStrategy } from "./strategies/table-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
+import { SuperscriptConversionStrategy } from "./strategies/worldanvil/superscript-strategy";
 
 /**
  * Factory for creating ordered strategy chains based on dependencies.
@@ -43,8 +43,7 @@ export class StrategyChainFactory {
             new StandardListConversionStrategy(),
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
-            new StrikethroughConversionStrategy(),
-            new SuperscriptConversionStrategy()
+            new StrikethroughConversionStrategy()
         ]);
         
     private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> = 
