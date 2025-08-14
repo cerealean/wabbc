@@ -5,7 +5,7 @@ describe('StandardListConversionStrategy', () => {
   const strategy = new StandardListConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(6);
+    expect(strategy.priority).toBe(7);
     expect(strategy.name).toBe('StandardListConversion');
   });
 

@@ -5,7 +5,7 @@ describe('LinkConversionStrategy', () => {
   const strategy = new LinkConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(4);
+    expect(strategy.priority).toBe(5);
     expect(strategy.name).toBe('LinkConversion');
   });
 

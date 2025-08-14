@@ -5,7 +5,7 @@ describe('WorldAnvilListConversionStrategy', () => {
   const strategy = new WorldAnvilListConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(7);
+    expect(strategy.priority).toBe(8);
     expect(strategy.name).toBe('WorldAnvilListConversion');
   });
 

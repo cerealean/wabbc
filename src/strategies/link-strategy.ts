@@ -4,7 +4,7 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown links to BBCode format
  */
 export class LinkConversionStrategy implements ConversionStrategy {
-  readonly priority = 4;
+  readonly priority = 5;
   readonly name = 'LinkConversion';
 
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {

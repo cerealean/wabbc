@@ -1,17 +1,19 @@
 import { ConversionStrategy } from '../../src/strategies/conversion-strategy';
-import { HeaderConversionStrategy } from '../../src/strategies/header-strategy';
 import { EmphasisConversionStrategy } from '../../src/strategies/emphasis-strategy';
 import { ImageConversionStrategy } from '../../src/strategies/image-strategy';
 import { LinkConversionStrategy } from '../../src/strategies/link-strategy';
 import { CodeConversionStrategy } from '../../src/strategies/code-strategy';
+import { StandardHeaderConversionStrategy } from '../../src/strategies/standard/header-strategy';
 import { StandardListConversionStrategy } from '../../src/strategies/standard/list-strategy';
+import { WorldAnvilHeaderConversionStrategy } from '../../src/strategies/worldanvil/header-strategy';
 import { WorldAnvilListConversionStrategy } from '../../src/strategies/worldanvil/list-strategy';
 import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 import { StrikethroughConversionStrategy } from '../../src/strategies/strikethrough-strategy';
 
 describe('Strategy Interface and Priority', () => {
   const strategies: ConversionStrategy[] = [
-    new HeaderConversionStrategy(),
+    new StandardHeaderConversionStrategy(),
+    new WorldAnvilHeaderConversionStrategy(),
     new EmphasisConversionStrategy(),
     new ImageConversionStrategy(),
     new LinkConversionStrategy(),
@@ -43,7 +45,7 @@ describe('Strategy Interface and Priority', () => {
 
   test('should have sequential priorities starting from 1', () => {
     const priorities = strategies.map(s => s.priority).sort((a, b) => a - b);
-    expect(priorities).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(priorities).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
   test('should all implement ConversionStrategy interface', () => {
@@ -62,12 +64,13 @@ describe('Strategy Interface and Priority', () => {
     const expectedNames = [
       'CodeConversion',
       'EmphasisConversion',
-      'HeaderConversion',
       'ImageConversion',
       'LinkConversion',
       'QuoteConversion',
+      'StandardHeaderConversion',
       'StandardListConversion',
       'StrikethroughConversion',
+      'WorldAnvilHeaderConversion',
       'WorldAnvilListConversion'
     ];
     expect(strategyNames).toEqual(expectedNames);

@@ -5,7 +5,7 @@ describe('ImageConversionStrategy', () => {
   const strategy = new ImageConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(3);
+    expect(strategy.priority).toBe(4);
     expect(strategy.name).toBe('ImageConversion');
   });
 

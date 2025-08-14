@@ -364,7 +364,7 @@ describe('Markdown to BBCode Converter', () => {
             const strategies = converter.getStrategies();
             
             expect(strategies).toHaveLength(8);
-            expect(strategies[0]?.name).toBe('HeaderConversion');
+            expect(strategies[0]?.name).toBe('StandardHeaderConversion');
             expect(strategies[0]?.priority).toBe(1);
         });
 
@@ -388,7 +388,7 @@ describe('Markdown to BBCode Converter', () => {
             const strategies = converter.getStrategies();
             const strategyNames = strategies.map(s => s.name);
             
-            expect(strategyNames).toContain('HeaderConversion');
+            expect(strategyNames).toContain('StandardHeaderConversion');
             expect(strategyNames).toContain('EmphasisConversion');
             expect(strategyNames).toContain('ImageConversion');
             expect(strategyNames).toContain('LinkConversion');
@@ -410,7 +410,7 @@ describe('Markdown to BBCode Converter', () => {
             const strategies = converter.getStrategies();
             const strategyNames = strategies.map(s => s.name);
             
-            expect(strategyNames).toContain('HeaderConversion');
+            expect(strategyNames).toContain('WorldAnvilHeaderConversion');
             expect(strategyNames).toContain('EmphasisConversion');
             expect(strategyNames).toContain('ImageConversion');
             expect(strategyNames).toContain('LinkConversion');

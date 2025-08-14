@@ -5,7 +5,7 @@ describe('QuoteConversionStrategy', () => {
   const strategy = new QuoteConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(8);
+    expect(strategy.priority).toBe(9);
     expect(strategy.name).toBe('QuoteConversion');
   });
 

@@ -4,7 +4,7 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown code blocks and inline code to BBCode format
  */
 export class CodeConversionStrategy implements ConversionStrategy {
-  readonly priority = 5;
+  readonly priority = 6;
   readonly name = 'CodeConversion';
 
   convert(text: string, format: 'bbcode' | 'worldanvil'): string {

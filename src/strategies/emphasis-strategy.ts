@@ -1,20 +1,24 @@
 import { ConversionStrategy } from './conversion-strategy';
 
 /**
- * Converts markdown emphasis (bold/italic) to BBCode format
+ * Converts markdown emphasis to BBCode format
  */
 export class EmphasisConversionStrategy implements ConversionStrategy {
-  readonly priority = 2;
+  readonly priority = 3;
   readonly name = 'EmphasisConversion';
 
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
-    // Bold: **text** or __text__
-    text = text.replace(/\*\*(.*?)\*\*/g, '[b]$1[/b]');
-    text = text.replace(/__(.*?)__/g, '[b]$1[/b]');
+    // Bold and italic combined
+    text = text.replace(/\*\*\*(.+?)\*\*\*/g, '[b][i]$1[/i][/b]');
+    text = text.replace(/___(.+?)___/g, '[b][i]$1[/i][/b]');
     
-    // Italic: *text* or _text_
-    text = text.replace(/\*(.*?)\*/g, '[i]$1[/i]');
-    text = text.replace(/_(.*?)_/g, '[i]$1[/i]');
+    // Bold
+    text = text.replace(/\*\*(.+?)\*\*/g, '[b]$1[/b]');
+    text = text.replace(/__(.+?)__/g, '[b]$1[/b]');
+    
+    // Italic
+    text = text.replace(/\*(.+?)\*/g, '[i]$1[/i]');
+    text = text.replace(/_(.+?)_/g, '[i]$1[/i]');
     
     return text;
   }

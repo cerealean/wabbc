@@ -5,7 +5,7 @@ describe('CodeConversionStrategy', () => {
   const strategy = new CodeConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(5);
+    expect(strategy.priority).toBe(6);
     expect(strategy.name).toBe('CodeConversion');
   });
 

@@ -5,7 +5,7 @@ describe('EmphasisConversionStrategy', () => {
   const strategy = new EmphasisConversionStrategy();
 
   test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(2);
+    expect(strategy.priority).toBe(3);
     expect(strategy.name).toBe('EmphasisConversion');
   });
 
