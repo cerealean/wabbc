@@ -230,6 +230,48 @@ describe('Markdown to BBCode Converter', () => {
             const backslashMarkdown = `${text1}\\\n${text2}`;
             expect(standardConverter.convert(backslashMarkdown)).toBe(backslashMarkdown);
         });
+
+        test('should convert underline tags to WorldAnvil format', () => {
+            const text = faker.lorem.words(2);
+            const markdown = `<ins>${text}</ins>`;
+            const result = converter.convert(markdown);
+            expect(result).toBe(`[u]${text}[/u]`);
+        });
+
+        test('should handle multiple underline tags in WorldAnvil format', () => {
+            const text1 = faker.lorem.word();
+            const text2 = faker.lorem.word();
+            const markdown = `<ins>${text1}</ins> and <ins>${text2}</ins>`;
+            const result = converter.convert(markdown);
+            expect(result).toBe(`[u]${text1}[/u] and [u]${text2}[/u]`);
+        });
+
+        test('should convert underline mixed with other formatting in WorldAnvil format', () => {
+            const boldText = faker.lorem.word();
+            const underlineText = faker.lorem.word();
+            const italicText = faker.lorem.word();
+            const markdown = `**${boldText}** with <ins>${underlineText}</ins> and *${italicText}*`;
+            const result = converter.convert(markdown);
+            expect(result).toBe(`[b]${boldText}[/b] with [u]${underlineText}[/u] and [i]${italicText}[/i]`);
+        });
+    });
+
+    describe('Converter Class - BBCode vs WorldAnvil underline behavior', () => {
+        test('should ignore underline tags in traditional BBCode format', () => {
+            const bbcodeConverter = new Converter();
+            const text = faker.lorem.words(2);
+            const markdown = `<ins>${text}</ins>`;
+            const result = bbcodeConverter.convert(markdown);
+            expect(result).toBe(markdown); // Should remain unchanged
+        });
+
+        test('should convert underline tags in WorldAnvil format', () => {
+            const worldanvilConverter = new Converter({ format: 'worldanvil' });
+            const text = faker.lorem.words(2);
+            const markdown = `<ins>${text}</ins>`;
+            const result = worldanvilConverter.convert(markdown);
+            expect(result).toBe(`[u]${text}[/u]`);
+        });
     });
 
     describe('Converter Class - Error handling', () => {

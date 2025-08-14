@@ -8,7 +8,7 @@ describe('LinkConversionStrategy', () => {
     expect((strategy as any).runAfter).toBeUndefined();
   });
 
-  test('should convert markdown links', () => {
+  test.concurrent('should convert markdown links', async () => {
     const linkText = faker.lorem.words(2);
     const url = faker.internet.url();
     const markdown = `[${linkText}](${url})`;
@@ -16,14 +16,14 @@ describe('LinkConversionStrategy', () => {
     expect(result).toBe(`[url=${url}]${linkText}[/url]`);
   });
 
-  test('should convert auto-links', () => {
+  test.concurrent('should convert auto-links', async () => {
     const url = faker.internet.url();
     const markdown = `<${url}>`;
     const result = strategy.convert(markdown, 'bbcode');
     expect(result).toBe(`[url]${url}[/url]`);
   });
 
-  test('should work the same for both formats', () => {
+  test.concurrent('should work the same for both formats', async () => {
     const linkText = faker.lorem.words(2);
     const url = faker.internet.url();
     const markdown = `[${linkText}](${url})`;
@@ -33,7 +33,7 @@ describe('LinkConversionStrategy', () => {
     expect(bbcodeResult).toBe(worldanvilResult);
   });
 
-  test('should handle multiple links', () => {
+  test.concurrent('should handle multiple links', async () => {
     const text1 = faker.lorem.word();
     const url1 = faker.internet.url();
     const text2 = faker.lorem.word();
@@ -44,10 +44,10 @@ describe('LinkConversionStrategy', () => {
     expect(result).toBe(`[url=${url1}]${text1}[/url] and [url=${url2}]${text2}[/url]`);
   });
 
-  test('should handle auto-links with different protocols', () => {
+  test.concurrent('should handle auto-links with different protocols', async () => {
     const httpsUrl = faker.internet.url({ protocol: 'https' });
     const httpUrl = faker.internet.url({ protocol: 'http' });
-    
+  
     const markdown = `<${httpsUrl}> <${httpUrl}>`;
     const result = strategy.convert(markdown, 'bbcode');
     expect(result).toBe(`[url]${httpsUrl}[/url] [url]${httpUrl}[/url]`);

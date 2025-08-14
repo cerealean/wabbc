@@ -8,35 +8,35 @@ describe('EmphasisConversionStrategy', () => {
     expect((strategy as any).runAfter).toBeUndefined();
   });
 
-  test('should convert bold text with **', () => {
+  test.concurrent('should convert bold text with **', async () => {
     const text = faker.lorem.words(2);
     const markdown = `**${text}**`;
     const result = strategy.convert(markdown, 'bbcode');
     expect(result).toBe(`[b]${text}[/b]`);
   });
 
-  test('should convert bold text with __', () => {
+  test.concurrent('should convert bold text with __', async () => {
     const text = faker.lorem.words(2);
     const markdown = `__${text}__`;
     const result = strategy.convert(markdown, 'bbcode');
     expect(result).toBe(`[b]${text}[/b]`);
   });
 
-  test('should convert italic text with *', () => {
+  test.concurrent('should convert italic text with *', async () => {
     const text = faker.lorem.word();
     const markdown = `*${text}*`;
     const result = strategy.convert(markdown, 'bbcode');
     expect(result).toBe(`[i]${text}[/i]`);
   });
 
-  test('should convert italic text with _', () => {
+  test.concurrent('should convert italic text with _', async () => {
     const text = faker.lorem.word();
     const markdown = `_${text}_`;
     const result = strategy.convert(markdown, 'bbcode');
     expect(result).toBe(`[i]${text}[/i]`);
   });
 
-  test('should work the same for both formats', () => {
+  test.concurrent('should work the same for both formats', async () => {
     const text = faker.lorem.word();
     const markdown = `**${text}**`;
     const bbcodeResult = strategy.convert(markdown, 'bbcode');
@@ -44,7 +44,7 @@ describe('EmphasisConversionStrategy', () => {
     expect(bbcodeResult).toBe(worldanvilResult);
   });
 
-  test('should handle mixed emphasis in same text', () => {
+  test.concurrent('should handle mixed emphasis in same text', async () => {
     const boldText = faker.lorem.word();
     const italicText = faker.lorem.word();
     const markdown = `**${boldText}** and *${italicText}*`;
