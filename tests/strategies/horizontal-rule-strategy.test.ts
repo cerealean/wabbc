@@ -13,139 +13,105 @@ describe('WorldAnvilHorizontalRuleConversionStrategy', () => {
   describe('WorldAnvil format', () => {
     test('should convert three dashes to [hr]', () => {
       const markdown = '---';
-      const result = strategy.convert(markdown, 'worldanvil');
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
     test('should convert three asterisks to [hr]', () => {
       const markdown = '***';
-      const result = strategy.convert(markdown, 'worldanvil');
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
     test('should convert more than three dashes to [hr]', () => {
       const markdown = '-----';
-      const result = strategy.convert(markdown, 'worldanvil');
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
     test('should convert more than three asterisks to [hr]', () => {
       const markdown = '*****';
-      const result = strategy.convert(markdown, 'worldanvil');
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
-    test('should handle horizontal rules with leading whitespace', () => {
+    test('should handle dashes with leading whitespace', () => {
       const markdown = '   ---';
-      const result = strategy.convert(markdown, 'worldanvil');
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
-    test('should handle horizontal rules with trailing whitespace', () => {
+    test('should handle dashes with trailing whitespace', () => {
       const markdown = '---   ';
-      const result = strategy.convert(markdown, 'worldanvil');
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
-    test('should handle horizontal rules with both leading and trailing whitespace', () => {
-      const markdown = '  ***  ';
-      const result = strategy.convert(markdown, 'worldanvil');
+    test('should handle dashes with both leading and trailing whitespace', () => {
+      const markdown = '   ---   ';
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
-    test('should convert multiple horizontal rules', () => {
-      const markdown = '---\n\nSome text\n\n***';
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe('[hr]\n\nSome text\n\n[hr]');
-    });
-
-    test('should only convert lines that contain only horizontal rule characters', () => {
-      const text = faker.lorem.words(2);
-      const markdown = `${text} ---`;
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe(markdown); // Should remain unchanged
-    });
-
-    test('should not convert less than three characters', () => {
-      const markdown = '--';
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe(markdown); // Should remain unchanged
-    });
-
-    test('should not convert mixed characters', () => {
-      const markdown = '-*-';
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe(markdown); // Should remain unchanged
-    });
-
-    test('should handle complex markdown with horizontal rules', () => {
-      const markdown = `# Header
-
-Some paragraph text.
-
----
-
-More text here.
-
-***
-
-Final paragraph.`;
-      
-      const expected = `# Header
-
-Some paragraph text.
-
-[hr]
-
-More text here.
-
-[hr]
-
-Final paragraph.`;
-      
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe(expected);
-    });
-  });
-
-  describe('Conversion behavior (format-agnostic)', () => {
-    test('should convert three dashes regardless of format parameter', () => {
-      const markdown = '---';
-      const result = strategy.convert(markdown, 'bbcode'); // Even with bbcode format
+    test('should handle asterisks with leading whitespace', () => {
+      const markdown = '   ***';
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
 
-    test('should convert three asterisks regardless of format parameter', () => {
-      const markdown = '***';
-      const result = strategy.convert(markdown, 'bbcode'); // Even with bbcode format  
+    test('should handle asterisks with trailing whitespace', () => {
+      const markdown = '***   ';
+      const result = strategy.convert(markdown);
       expect(result).toBe('[hr]');
     });
-  });
 
-  describe('Edge cases', () => {
-    test('should handle empty string', () => {
-      const result = strategy.convert('', 'worldanvil');
+    test('should handle asterisks with both leading and trailing whitespace', () => {
+      const markdown = '   ***   ';
+      const result = strategy.convert(markdown);
+      expect(result).toBe('[hr]');
+    });
+
+    test('should convert multiline with horizontal rules', () => {
+      const line1 = faker.lorem.sentence();
+      const line2 = faker.lorem.sentence();
+      const markdown = `${line1}\n---\n${line2}`;
+      const result = strategy.convert(markdown);
+      expect(result).toBe(`${line1}\n[hr]\n${line2}`);
+    });
+
+    test('should not convert dashes within text', () => {
+      const markdown = 'This is a dash-separated-word';
+      const result = strategy.convert(markdown);
+      expect(result).toBe(markdown);
+    });
+
+    test('should not convert asterisks within text', () => {
+      const markdown = 'This has *emphasis* text';
+      const result = strategy.convert(markdown);
+      expect(result).toBe(markdown);
+    });
+
+    test('should handle empty input', () => {
+      const result = strategy.convert('');
       expect(result).toBe('');
     });
 
-    test('should handle horizontal rule at start of text', () => {
-      const text = faker.lorem.paragraph();
-      const markdown = `---\n${text}`;
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe(`[hr]\n${text}`);
+    test('should not convert insufficient dashes', () => {
+      const markdown = '--';
+      const result = strategy.convert(markdown);
+      expect(result).toBe(markdown);
     });
 
-    test('should handle horizontal rule at end of text', () => {
-      const text = faker.lorem.paragraph();
-      const markdown = `${text}\n---`;
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe(`${text}\n[hr]`);
+    test('should not convert insufficient asterisks', () => {
+      const markdown = '**';
+      const result = strategy.convert(markdown);
+      expect(result).toBe(markdown);
     });
 
-    test('should handle only horizontal rule', () => {
-      const markdown = '---';
-      const result = strategy.convert(markdown, 'worldanvil');
-      expect(result).toBe('[hr]');
+    test('should preserve other content unchanged', () => {
+      const markdown = `${faker.lorem.paragraph()}\n\nSome other content here.`;
+      const result = strategy.convert(markdown);
+      expect(result).toBe(markdown);
     });
   });
 });

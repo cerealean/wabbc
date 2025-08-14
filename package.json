@@ -1,7 +1,7 @@
 {
   "name": "@cerealean/markdown-bbcode-converter",
   "version": "1.0.0",
-  "description": "A Node.js library for converting GitHub-flavored Markdown to BBCode or WorldAnvil BBCode",
+  "description": "A Node.js library for converting GitHub-flavored Markdown to WorldAnvil BBCode",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "files": [
@@ -33,8 +33,8 @@
   },
   "keywords": [
     "markdown",
-    "bbcode",
     "worldanvil",
+    "worldanvil-bbcode",
     "converter",
     "github-flavored-markdown"
   ],

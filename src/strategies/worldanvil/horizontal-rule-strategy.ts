@@ -10,7 +10,7 @@ export class WorldAnvilHorizontalRuleConversionStrategy implements ConversionStr
   // Must run before emphasis strategy to avoid conflicts with *** patterns
   readonly runBefore = [EmphasisConversionStrategy] as const;
 
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     return this.convertHorizontalRules(text);
   }
 

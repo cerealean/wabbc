@@ -1,13 +1,7 @@
-import { CodeConversionStrategy as StandardCodeConversionStrategy } from "./strategies/standard/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
-import { StandardChecklistConversionStrategy } from "./strategies/standard/checklist-strategy";
-import { StandardHeaderConversionStrategy } from "./strategies/standard/header-strategy";
-
-import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
-import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
 import { WorldAnvilDiceConversionStrategy } from "./strategies/worldanvil/dice-strategy";
 import { WorldAnvilChecklistConversionStrategy } from "./strategies/worldanvil/checklist-strategy";
@@ -35,28 +29,14 @@ import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from "./st
  * export class MyStrategy implements ConversionStrategy {
  *   readonly runAfter = [ImageConversionStrategy, LinkConversionStrategy] as const;
  *   
- *   convert(text: string, format: 'bbcode' | 'worldanvil'): string {
+ *   convert(text: string): string {
  *     // Implementation
  *   }
  * }
  * ```
  */
 export class StrategyChainFactory {
-    private static readonly bbcodeStrategies: ReadonlyArray<ConversionStrategy> =
-        StrategyChainFactory.sortStrategiesByDependencies([
-            new StandardHeaderConversionStrategy(),
-            new EmphasisConversionStrategy(),
-            new StandardImageConversionStrategy(),
-            new LinkConversionStrategy(),
-            new StandardCodeConversionStrategy(),
-            new StandardChecklistConversionStrategy(),
-            new StandardListConversionStrategy(),
-            new TableConversionStrategy(),
-            new QuoteConversionStrategy(),
-            new StrikethroughConversionStrategy()
-        ]);
-
-    private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> =
+    private static readonly strategies: ReadonlyArray<ConversionStrategy> =
         StrategyChainFactory.sortStrategiesByDependencies([
             new WorldAnvilHeaderConversionStrategy(),
             new EmphasisConversionStrategy(),
@@ -146,12 +126,7 @@ export class StrategyChainFactory {
         return result;
     }
 
-    static getStrategies(format: 'bbcode' | 'worldanvil'): ReadonlyArray<ConversionStrategy> {
-        switch (format) {
-            case 'bbcode':
-                return this.bbcodeStrategies;
-            case 'worldanvil':
-                return this.worldanvilStrategies;
-        }
+    static getStrategies(): ReadonlyArray<ConversionStrategy> {
+        return this.strategies;
     }
 }

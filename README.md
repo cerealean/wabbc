@@ -1,12 +1,12 @@
-# Markdown BBCode Converter
+# Markdown WorldAnvil BBCode Converter
 
-A Node.js library written in TypeScript for converting GitHub-flavored Markdown to BBCode or WorldAnvil BBCode.
+A Node.js library written in TypeScript for converting GitHub-flavored Markdown to WorldAnvil BBCode format.
 
 ## Features
 
-- Convert GitHub-flavored Markdown to traditional BBCode
 - Convert GitHub-flavored Markdown to WorldAnvil BBCode format
 - Support for headers, emphasis, links, images, code blocks, lists, quotes, and more
+- WorldAnvil-specific features like dice notation, subscript, superscript, underline, and horizontal rules
 - Written in TypeScript with full type safety
 - Comprehensive error handling
 - Full test coverage
@@ -24,69 +24,52 @@ npm install markdown-bbcode-converter
 ```javascript
 const { Converter } = require('markdown-bbcode-converter');
 
-// Create converter instances
-const bbcodeConverter = new Converter();
-const worldAnvilConverter = new Converter({ format: 'worldanvil' });
-
-// Convert to traditional BBCode
-const bbcode = bbcodeConverter.convert('**Bold text** and *italic text*');
-console.log(bbcode); // [b]Bold text[/b] and [i]italic text[/i]
+// Create converter instance
+const converter = new Converter();
 
 // Convert to WorldAnvil BBCode
-const worldAnvilCode = worldAnvilConverter.convert('# Header');
-console.log(worldAnvilCode); // [h1]Header[/h1]
+const worldAnvilCode = converter.convert('**Bold text** and *italic text*');
+console.log(worldAnvilCode); // [b]Bold text[/b] and [i]italic text[/i]
+
+// WorldAnvil-specific features
+const specialCode = converter.convert('# Header\n\nText with ^superscript^ and ~subscript~.');
+console.log(specialCode); // [h1]Header[/h1]\n\nText with [sup]superscript[/sup] and [sub]subscript[/sub].
 ```
 
 ### TypeScript
 ```typescript
 import { Converter, ConversionOptions } from 'markdown-bbcode-converter';
 
-// Create converter instances
-const bbcodeConverter = new Converter();
-const worldAnvilConverter = new Converter({ format: 'worldanvil' });
-
-// Convert to traditional BBCode
-const bbcode: string = bbcodeConverter.convert('**Bold text** and *italic text*');
-console.log(bbcode); // [b]Bold text[/b] and [i]italic text[/i]
+// Create converter instance
+const converter = new Converter();
 
 // Convert to WorldAnvil BBCode
-const worldAnvilCode: string = worldAnvilConverter.convert('# Header');
-console.log(worldAnvilCode); // [h1]Header[/h1]
-```
-
-// Convert to traditional BBCode
-const bbcode: string = convertMarkdownToBBCode('**Bold text** and *italic text*');
-console.log(bbcode); // [b]Bold text[/b] and [i]italic text[/i]
-
-// Convert to WorldAnvil BBCode
-const options: ConversionOptions = { format: 'worldanvil' };
-const worldAnvilCode: string = convertMarkdownToBBCode('# Header', options);
-console.log(worldAnvilCode); // [h1]Header[/h1]
+const worldAnvilCode: string = converter.convert('**Bold text** and *italic text*');
+console.log(worldAnvilCode); // [b]Bold text[/b] and [i]italic text[/i]
 ```
 
 ## API
 
 ### `new Converter(options?)`
 
-Creates a new converter instance.
+Creates a new converter instance for WorldAnvil BBCode conversion.
 
 **Parameters:**
-- `options` (ConversionOptions, optional): Conversion options
-  - `format` ('bbcode' | 'worldanvil'): Either 'bbcode' (default) for traditional BBCode or 'worldanvil' for WorldAnvil BBCode
+- `options` (ConversionOptions, optional): Reserved for future options
 
 **Example:**
 ```typescript
-const converter = new Converter({ format: 'worldanvil' });
+const converter = new Converter();
 ```
 
 ### `converter.convert(markdown)`
 
-Converts markdown text to BBCode format using the converter's configured format.
+Converts markdown text to WorldAnvil BBCode format.
 
 **Parameters:**
 - `markdown` (string): The markdown text to convert
 
-**Returns:** string - The converted BBCode text
+**Returns:** string - The converted WorldAnvil BBCode text
 
 **Throws:** Error if markdown input is not a string
 
@@ -101,40 +84,49 @@ const result = converter.convert('**Bold text**');
 
 ```typescript
 interface ConversionOptions {
-  format?: 'bbcode' | 'worldanvil';
+  // Reserved for future options
 }
 ```
 
-## Supported Conversions
+## Supported WorldAnvil BBCode Conversions
+
+### Text Formatting
+- **Bold**: `**text**` or `__text__` → `[b]text[/b]`
+- **Italic**: `*text*` or `_text_` → `[i]text[/i]`
+- **Strikethrough**: `~~text~~` → `[s]text[/s]`
+- **Underline**: `[u]text[/u]` → `[u]text[/u]` (preserved)
 
 ### Headers
-- Markdown: `# Header 1` → BBCode: `[size=28][b]Header 1[/b][/size]`
-- Markdown: `# Header 1` → WorldAnvil: `[h1]Header 1[/h1]`
+- `# Header` → `[h1]Header[/h1]`
+- `## Header` → `[h2]Header[/h2]`
+- `### Header` → `[h3]Header[/h3]`
+- `#### Header` → `[h4]Header[/h4]`
+- `##### Header` → `[h5]Header[/h5]`
+- `###### Header` → `[h6]Header[/h6]`
 
-### Emphasis
-- Markdown: `**bold**` → BBCode: `[b]bold[/b]`
-- Markdown: `*italic*` → BBCode: `[i]italic[/i]`
-
-### Links
-- Markdown: `[text](url)` → BBCode: `[url=url]text[/url]`
-
-### Images
-- Markdown: `![alt](url)` → BBCode: `[img]url[/img]`
-- Markdown: `![alt](url)` → WorldAnvil: `[img:alt]url[/img]`
+### Links and Images
+- **Links**: `[text](url)` → `[url=url]text[/url]`
+- **Images**: `![alt](url)` → `[img:alt]url[/img]`
 
 ### Code
-- Markdown: `` `code` `` → BBCode: `[code]code[/code]`
-- Markdown: ````javascript\ncode\n```` → BBCode: `[code]code[/code]`
-- Markdown: ````javascript\ncode\n```` → WorldAnvil: `[code:javascript]code[/code]`
+- **Inline code**: `` `code` `` → `[code]code[/code]`
+- **Code blocks**: ````javascript\ncode\n```` → `[code:javascript]code[/code]`
 
 ### Lists
-- Markdown: `- item` → BBCode: `[list]\n[*] item\n[/list]`
+- **Unordered**: `- item` → `[list]\n[*] item\n[/list]`
+- **Ordered**: `1. item` → `[olist]\n[*] item\n[/olist]`
+- **Checklists**: `- [x] done` → `[*] ✓ done`
 
 ### Quotes
-- Markdown: `> quote` → BBCode: `[quote]quote[/quote]`
+- `> quote` → `[quote]quote[/quote]`
 
-### Strikethrough
-- Markdown: `~~text~~` → BBCode: `[s]text[/s]`
+### WorldAnvil-Specific Features
+- **Horizontal rules**: `---` or `***` → `[hr]`
+- **Superscript**: `^text^` → `[sup]text[/sup]`
+- **Subscript**: `~text~` → `[sub]text[/sub]`
+- **Dice notation**: `[1d20]` → `[1d20]` (preserved)
+- **Line breaks**: Multiple newlines preserved
+- **Tables**: Basic markdown tables → WorldAnvil table format
 
 ## Development
 

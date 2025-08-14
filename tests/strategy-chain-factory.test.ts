@@ -1,25 +1,12 @@
 import { StrategyChainFactory } from '../src/strategy-chain-factory';
 import { ConversionStrategy } from '../src/strategies/conversion-strategy';
 import { LinkConversionStrategy } from '../src/strategies/link-strategy';
-import { ImageConversionStrategy as StandardImageConversionStrategy } from '../src/strategies/standard/image-strategy';
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../src/strategies/worldanvil/image-strategy';
 
 describe('StrategyChainFactory', () => {
   describe('getStrategies', () => {
-    test('should return bbcode strategies for bbcode format', () => {
-      const strategies = StrategyChainFactory.getStrategies('bbcode');
-      expect(strategies).toBeDefined();
-      expect(strategies.length).toBeGreaterThan(0);
-      
-      // Should include image and link strategies
-      const hasStandardImage = strategies.some(s => s instanceof StandardImageConversionStrategy);
-      const hasLink = strategies.some(s => s instanceof LinkConversionStrategy);
-      expect(hasStandardImage).toBe(true);
-      expect(hasLink).toBe(true);
-    });
-
-    test('should return worldanvil strategies for worldanvil format', () => {
-      const strategies = StrategyChainFactory.getStrategies('worldanvil');
+    test('should return WorldAnvil strategies', () => {
+      const strategies = StrategyChainFactory.getStrategies();
       expect(strategies).toBeDefined();
       expect(strategies.length).toBeGreaterThan(0);
       
@@ -32,19 +19,8 @@ describe('StrategyChainFactory', () => {
   });
 
   describe('strategy ordering', () => {
-    test('should order image strategies before link strategy in bbcode format', () => {
-      const strategies = StrategyChainFactory.getStrategies('bbcode');
-      
-      const imageIndex = strategies.findIndex(s => s instanceof StandardImageConversionStrategy);
-      const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);
-      
-      expect(imageIndex).toBeGreaterThanOrEqual(0);
-      expect(linkIndex).toBeGreaterThanOrEqual(0);
-      expect(imageIndex).toBeLessThan(linkIndex);
-    });
-
-    test('should order image strategies before link strategy in worldanvil format', () => {
-      const strategies = StrategyChainFactory.getStrategies('worldanvil');
+    test('should order image strategy before link strategy', () => {
+      const strategies = StrategyChainFactory.getStrategies();
       
       const imageIndex = strategies.findIndex(s => s instanceof WorldAnvilImageConversionStrategy);
       const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);

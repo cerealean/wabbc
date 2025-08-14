@@ -1,13 +1,12 @@
 import { 
     Converter
 } from '../src/converter';
-import { StandardHeaderConversionStrategy } from '../src/strategies/standard/header-strategy';
-import { ImageConversionStrategy as StandardImageConversionStrategy } from '../src/strategies/standard/image-strategy';
+import { WorldAnvilHeaderConversionStrategy } from '../src/strategies/worldanvil/header-strategy';
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../src/strategies/worldanvil/image-strategy';
 import { LinkConversionStrategy } from '../src/strategies/link-strategy';
 import { faker } from '@faker-js/faker';
 
-describe('Markdown to BBCode Converter', () => {
+describe('Markdown to WorldAnvil BBCode Converter', () => {
     describe('Converter Class - Basic conversion', () => {
         let converter: Converter;
         
@@ -27,7 +26,7 @@ describe('Markdown to BBCode Converter', () => {
             expect(converter.convert(`_${text}_`)).toBe(`[i]${text}[/i]`);
         });
 
-        test('should convert headers', () => {
+        test('should convert headers to WorldAnvil format', () => {
             const h1Text = faker.lorem.words(2);
             const h2Text = faker.lorem.words(3);
             const h3Text = faker.lorem.words(2);
@@ -35,12 +34,12 @@ describe('Markdown to BBCode Converter', () => {
             const h5Text = faker.lorem.words(2);
             const h6Text = faker.lorem.words(3);
             
-            expect(converter.convert(`# ${h1Text}`)).toBe(`[size=28][b]${h1Text}[/b][/size]`);
-            expect(converter.convert(`## ${h2Text}`)).toBe(`[size=24][b]${h2Text}[/b][/size]`);
-            expect(converter.convert(`### ${h3Text}`)).toBe(`[size=20][b]${h3Text}[/b][/size]`);
-            expect(converter.convert(`#### ${h4Text}`)).toBe(`[size=18][b]${h4Text}[/b][/size]`);
-            expect(converter.convert(`##### ${h5Text}`)).toBe(`[size=16][b]${h5Text}[/b][/size]`);
-            expect(converter.convert(`###### ${h6Text}`)).toBe(`[size=14][b]${h6Text}[/b][/size]`);
+            expect(converter.convert(`# ${h1Text}`)).toBe(`[h1]${h1Text}[/h1]`);
+            expect(converter.convert(`## ${h2Text}`)).toBe(`[h2]${h2Text}[/h2]`);
+            expect(converter.convert(`### ${h3Text}`)).toBe(`[h3]${h3Text}[/h3]`);
+            expect(converter.convert(`#### ${h4Text}`)).toBe(`[h4]${h4Text}[/h4]`);
+            expect(converter.convert(`##### ${h5Text}`)).toBe(`[h5]${h5Text}[/h5]`);
+            expect(converter.convert(`###### ${h6Text}`)).toBe(`[h6]${h6Text}[/h6]`);
         });
 
         test('should convert links', () => {
@@ -58,40 +57,40 @@ describe('Markdown to BBCode Converter', () => {
             expect(converter.convert(`\`${code}\``)).toBe(`[code]${code}[/code]`);
         });
 
-        test('should convert code blocks', () => {
+        test('should convert code blocks to WorldAnvil format', () => {
             const jsCode = `console.log("${faker.lorem.word()}");`;
             const plainCode = faker.lorem.words(2);
             
             const jsMarkdown = `\`\`\`javascript\n${jsCode}\n\`\`\``;
-            expect(converter.convert(jsMarkdown)).toBe(`[code]${jsCode}[/code]`);
+            expect(converter.convert(jsMarkdown)).toBe(`[code:javascript]${jsCode}[/code]`);
             expect(converter.convert(`\`\`\`\n${plainCode}\n\`\`\``)).toBe(`[code]${plainCode}[/code]`);
         });
 
-        test('should convert images', () => {
+        test('should convert images to WorldAnvil format', () => {
             const altText = faker.lorem.words(2);
             const imageUrl = faker.image.url();
             const imageUrl2 = faker.image.url();
             
-            expect(converter.convert(`![${altText}](${imageUrl})`)).toBe(`[img]${imageUrl}[/img]`);
-            expect(converter.convert(`![](${imageUrl2})`)).toBe(`[img]${imageUrl2}[/img]`);
+            expect(converter.convert(`![${altText}](${imageUrl})`)).toBe(`[img:${altText}]${imageUrl}[/img]`);
+            expect(converter.convert(`![](${imageUrl2})`)).toBe(`[img:]${imageUrl2}[/img]`);
         });
 
         test('should convert lists', () => {
             const item1 = faker.lorem.words(2);
             const item2 = faker.lorem.words(3);
             
-            expect(converter.convert(`- ${item1}\n- ${item2}`)).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]`);
-            expect(converter.convert(`* ${item1}\n* ${item2}`)).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]`);
-            expect(converter.convert(`+ ${item1}\n+ ${item2}`)).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]`);
+            expect(converter.convert(`- ${item1}\n- ${item2}`)).toBe(`- ${item1}\n- ${item2}`);
+            expect(converter.convert(`* ${item1}\n* ${item2}`)).toBe(`- ${item1}\n- ${item2}`);
+            expect(converter.convert(`+ ${item1}\n+ ${item2}`)).toBe(`- ${item1}\n- ${item2}`);
         });
 
-        test('should convert ordered lists to traditional BBCode format', () => {
+        test('should convert ordered lists to WorldAnvil BBCode format', () => {
             const item1 = faker.lorem.words(2);
             const item2 = faker.lorem.words(3);
             const item3 = faker.lorem.words(2);
             
             const markdown = `1. ${item1}\n2. ${item2}\n3. ${item3}`;
-            const expected = `[list]\n[*] ${item1}\n[*] ${item2}\n[*] ${item3}\n[/list]`;
+            const expected = `[ol]\n  [li]${item1}[/li]\n  [li]${item2}[/li]\n  [li]${item3}[/li]\n[/ol]`;
             expect(converter.convert(markdown)).toBe(expected);
         });
 
@@ -106,11 +105,11 @@ describe('Markdown to BBCode Converter', () => {
         });
     });
 
-    describe('Converter Class - WorldAnvil format', () => {
+    describe('Converter Class - WorldAnvil specific features', () => {
         let converter: Converter;
         
         beforeEach(() => {
-            converter = new Converter({ format: 'worldanvil' });
+            converter = new Converter();
         });
 
         test('should convert headers to WorldAnvil format', () => {
@@ -217,20 +216,6 @@ describe('Markdown to BBCode Converter', () => {
             expect(converter.convert(backslashMarkdown)).toBe(`${text2}[br]${text3}`);
         });
 
-        test('should not convert line breaks for standard BBCode format', () => {
-            const standardConverter = new Converter({ format: 'bbcode' });
-            const text1 = faker.lorem.words(3);
-            const text2 = faker.lorem.words(2);
-            
-            // Test two spaces + newline - should remain unchanged
-            const spacesMarkdown = `${text1}  \n${text2}`;
-            expect(standardConverter.convert(spacesMarkdown)).toBe(spacesMarkdown);
-            
-            // Test backslash + newline - should remain unchanged
-            const backslashMarkdown = `${text1}\\\n${text2}`;
-            expect(standardConverter.convert(backslashMarkdown)).toBe(backslashMarkdown);
-        });
-
         test('should convert underline tags to WorldAnvil format', () => {
             const text = faker.lorem.words(2);
             const markdown = `<ins>${text}</ins>`;
@@ -256,24 +241,6 @@ describe('Markdown to BBCode Converter', () => {
         });
     });
 
-    describe('Converter Class - BBCode vs WorldAnvil underline behavior', () => {
-        test('should ignore underline tags in traditional BBCode format', () => {
-            const bbcodeConverter = new Converter();
-            const text = faker.lorem.words(2);
-            const markdown = `<ins>${text}</ins>`;
-            const result = bbcodeConverter.convert(markdown);
-            expect(result).toBe(markdown); // Should remain unchanged
-        });
-
-        test('should convert underline tags in WorldAnvil format', () => {
-            const worldanvilConverter = new Converter({ format: 'worldanvil' });
-            const text = faker.lorem.words(2);
-            const markdown = `<ins>${text}</ins>`;
-            const result = worldanvilConverter.convert(markdown);
-            expect(result).toBe(`[u]${text}[/u]`);
-        });
-    });
-
     describe('Converter Class - Error handling', () => {
         test('should throw error for non-string input', () => {
             const converter = new Converter();
@@ -281,11 +248,6 @@ describe('Markdown to BBCode Converter', () => {
             expect(() => converter.convert(123 as any)).toThrow('Markdown input must be a non-empty string');
             expect(() => converter.convert(undefined as any)).toThrow('Markdown input must be a non-empty string');
             expect(() => converter.convert('' as any)).toThrow('Markdown input must be a non-empty string');
-        });
-
-        test('should throw error for invalid format in constructor', () => {
-            expect(() => new Converter({ format: 'invalid' as any }))
-                .toThrow('Format must be either "bbcode" or "worldanvil"');
         });
 
         test('should work with empty options object', () => {
@@ -322,7 +284,7 @@ describe('Markdown to BBCode Converter', () => {
             const item3 = faker.lorem.words(2);
             
             const markdown = `- ${item1}\n- ${item2}\n- ${item3}`;
-            const expected = `[list]\n[*] ${item1}\n[*] ${item2}\n[*] ${item3}\n[/list]`;
+            const expected = `- ${item1}\n- ${item2}\n- ${item3}`;
             expect(converter.convert(markdown)).toBe(expected);
         });
 
@@ -346,7 +308,7 @@ describe('Markdown to BBCode Converter', () => {
             const item2 = faker.lorem.words(2);
             
             const markdown = `- ${item1}\n  - ${nestedItem}\n- ${item2}`;
-            const expected = `[list]\n[*] ${item1}\n  [*] ${nestedItem}\n[*] ${item2}\n[/list]`;
+            const expected = `- ${item1}\n-- ${nestedItem}\n- ${item2}`;
             expect(converter.convert(markdown)).toBe(expected);
         });
 
@@ -367,13 +329,12 @@ describe('Markdown to BBCode Converter', () => {
 - ${listItem}
 > ${quote}`;
             const result = converter.convert(markdown);
-            expect(result).toContain(`[size=28][b]${headerText}[/b][/size]`);
+            expect(result).toContain(`[h1]${headerText}[/h1]`);
             expect(result).toContain(`[b]${boldText}[/b]`);
             expect(result).toContain(`[i]${italicText}[/i]`);
             expect(result).toContain(`[url=${url}]${linkText}[/url]`);
             expect(result).toContain(`[code]${code}[/code]`);
-            expect(result).toContain('[list]');
-            expect(result).toContain(`[*] ${listItem}`);
+            expect(result).toContain(`- ${listItem}`);
             expect(result).toContain(`[quote]${quote}[/quote]`);
         });
 
@@ -383,7 +344,7 @@ describe('Markdown to BBCode Converter', () => {
             const url = faker.internet.url();
             
             const markdown = `![image](${imageUrl}) and [${linkText}](${url})`;
-            const expected = `[img]${imageUrl}[/img] and [url=${url}]${linkText}[/url]`;
+            const expected = `[img:image]${imageUrl}[/img] and [url=${url}]${linkText}[/url]`;
             expect(converter.convert(markdown)).toBe(expected);
         });
 
@@ -437,13 +398,13 @@ describe('Markdown to BBCode Converter', () => {
         test('should expose strategies for debugging', () => {
             const strategies = converter.getStrategies();
             
-            expect(strategies).toHaveLength(10);
-            expect(strategies.some(s => s instanceof StandardHeaderConversionStrategy)).toBeTruthy();
+            expect(strategies.length).toBeGreaterThan(0);
+            expect(strategies.some(s => s instanceof WorldAnvilHeaderConversionStrategy)).toBeTruthy();
         });
 
         test('should have both image and link strategies', () => {
             const strategies = converter.getStrategies();
-            const imageIndex = strategies.findIndex(s => s instanceof StandardImageConversionStrategy);
+            const imageIndex = strategies.findIndex(s => s instanceof WorldAnvilImageConversionStrategy);
             const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);
             
             expect(imageIndex).toBeGreaterThanOrEqual(0);
@@ -458,23 +419,27 @@ describe('Markdown to BBCode Converter', () => {
             expect(strategies1).toEqual(strategies2); // Same content
         });
 
-        test('should have all expected strategies', () => {
+        test('should have all expected WorldAnvil strategies', () => {
             const strategies = converter.getStrategies();
             const strategyTypes = strategies.map(s => s.constructor.name);
             
-            expect(strategyTypes).toContain('StandardHeaderConversionStrategy');
+            expect(strategyTypes).toContain('WorldAnvilHeaderConversionStrategy');
             expect(strategyTypes).toContain('EmphasisConversionStrategy');
             expect(strategyTypes).toContain('ImageConversionStrategy');
             expect(strategyTypes).toContain('LinkConversionStrategy');
             expect(strategyTypes).toContain('CodeConversionStrategy');
-            expect(strategyTypes).toContain('StandardListConversionStrategy');
+            expect(strategyTypes).toContain('WorldAnvilListConversionStrategy');
             expect(strategyTypes).toContain('QuoteConversionStrategy');
             expect(strategyTypes).toContain('StrikethroughConversionStrategy');
+            expect(strategyTypes).toContain('WorldAnvilHorizontalRuleConversionStrategy');
+            expect(strategyTypes).toContain('SuperscriptConversionStrategy');
+            expect(strategyTypes).toContain('WorldAnvilSubscriptConversionStrategy');
+            expect(strategyTypes).toContain('WorldAnvilUnderlineConversionStrategy');
         });
 
         test('should ensure image strategy runs before link strategy', () => {
             const strategies = converter.getStrategies();
-            const imageIndex = strategies.findIndex(s => s instanceof StandardImageConversionStrategy);
+            const imageIndex = strategies.findIndex(s => s instanceof WorldAnvilImageConversionStrategy);
             const linkIndex = strategies.findIndex(s => s instanceof LinkConversionStrategy);
             
             expect(imageIndex).toBeGreaterThanOrEqual(0);

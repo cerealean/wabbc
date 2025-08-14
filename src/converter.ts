@@ -1,47 +1,37 @@
 /**
- * Markdown to BBCode Converter
- * Converts GitHub-flavored Markdown to BBCode or WorldAnvil BBCode
+ * Markdown to WorldAnvil BBCode Converter
+ * Converts GitHub-flavored Markdown to WorldAnvil BBCode format
  */
 
 import { ConversionStrategy } from './strategies/conversion-strategy';
 import { StrategyChainFactory } from './strategy-chain-factory';
 
 /**
- * Options for converting markdown to BBCode
+ * Options for converting markdown to WorldAnvil BBCode
  */
 export interface ConversionOptions {
-  /** Format to convert to: 'bbcode' for traditional BBCode or 'worldanvil' for WorldAnvil BBCode */
-  format?: 'bbcode' | 'worldanvil';
+  // Reserved for future options if needed
 }
 
 /**
- * Converter class for converting Markdown to BBCode using the Strategy pattern
+ * Converter class for converting Markdown to WorldAnvil BBCode using the Strategy pattern
  */
 export class Converter {
-    private format: 'bbcode' | 'worldanvil';
     private readonly strategies: ReadonlyArray<ConversionStrategy>;
 
     /**
      * Creates a new Converter instance
-     * @param options - Conversion options
+     * @param _options - Conversion options (reserved for future use)
      */
-    constructor(options: ConversionOptions = {}) {
-        const { format = 'bbcode' } = options;
-        
-        if (!['bbcode', 'worldanvil'].includes(format)) {
-            throw new Error('Format must be either "bbcode" or "worldanvil"');
-        }
-        
-        this.format = format;
-        
+    constructor(_options: ConversionOptions = {}) {
         // Initialize strategies in priority order
-        this.strategies = StrategyChainFactory.getStrategies(this.format);
+        this.strategies = StrategyChainFactory.getStrategies();
     }
 
     /**
-     * Converts markdown text to BBCode format
+     * Converts markdown text to WorldAnvil BBCode format
      * @param markdown - The markdown text to convert
-     * @returns The converted BBCode text
+     * @returns The converted WorldAnvil BBCode text
      * @throws Error if markdown input is not a string
      */
     convert(markdown: string): string {
