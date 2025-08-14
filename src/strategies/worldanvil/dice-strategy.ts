@@ -5,12 +5,7 @@ import { ConversionStrategy } from '../conversion-strategy';
  * Only applies to WorldAnvil format, not standard BBCode
  */
 export class WorldAnvilDiceConversionStrategy implements ConversionStrategy {
-  convert(text: string, format: 'bbcode' | 'worldanvil'): string {
-    // Only convert for WorldAnvil format
-    if (format !== 'worldanvil') {
-      return text;
-    }
-    
+  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
     return this.convertDiceNotation(text);
   }
 

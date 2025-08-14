@@ -76,20 +76,6 @@ describe('WorldAnvilDiceConversionStrategy', () => {
     });
   });
 
-  describe('Standard BBCode format (no conversion)', () => {
-    test('should not convert dice notation for standard BBCode format', () => {
-      expect(strategy.convert('3d6', 'bbcode')).toBe('3d6');
-      expect(strategy.convert('1d20+5', 'bbcode')).toBe('1d20+5');
-      expect(strategy.convert('Roll 2d4 damage', 'bbcode')).toBe('Roll 2d4 damage');
-      expect(strategy.convert('3d6+3 and 1d20-1', 'bbcode')).toBe('3d6+3 and 1d20-1');
-    });
-
-    test('should preserve all text unchanged for BBCode format', () => {
-      const textWithDice = faker.lorem.sentence() + ' 3d6+2 ' + faker.lorem.sentence();
-      expect(strategy.convert(textWithDice, 'bbcode')).toBe(textWithDice);
-    });
-  });
-
   describe('Invalid dice patterns should not be converted', () => {
     test('should not convert invalid dice patterns', () => {
       // Missing 'd'
