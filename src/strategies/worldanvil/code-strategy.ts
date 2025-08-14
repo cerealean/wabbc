@@ -1,14 +1,14 @@
-import { ConversionStrategy } from './conversion-strategy';
+import { ConversionStrategy } from '../conversion-strategy';
 
 /**
- * Converts markdown code blocks and inline code to BBCode format
+ * Converts markdown code blocks and inline code to WorldAnvil BBCode format
  */
 export class CodeConversionStrategy implements ConversionStrategy {
-  convert(text: string, format: 'bbcode' | 'worldanvil'): string {
-    // Code blocks with language
+  convert(text: string): string {
+    // Code blocks with language support for WorldAnvil
     text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang: string | undefined, code: string) => {
       const cleanCode = code.trim();
-      if (lang && lang.trim() && format === 'worldanvil') {
+      if (lang && lang.trim()) {
         return `[code:${lang.trim()}]${cleanCode}[/code]`;
       } else {
         return `[code]${cleanCode}[/code]`;

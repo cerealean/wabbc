@@ -7,7 +7,7 @@ import { ConversionStrategy } from '../conversion-strategy';
  * - Backslash followed by newline: "\\\n" -> "[br]"
  */
 export class LineBreakConversionStrategy implements ConversionStrategy {
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     // Convert backslash + newline to [br]
     text = text.replace(/\\\r?\n/g, '[br]');
     

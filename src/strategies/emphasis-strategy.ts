@@ -4,7 +4,7 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown emphasis to BBCode format
  */
 export class EmphasisConversionStrategy implements ConversionStrategy {
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     // Bold and italic combined
     text = text.replace(/\*\*\*(.+?)\*\*\*/g, '[b][i]$1[/i][/b]');
     text = text.replace(/___(.+?)___/g, '[b][i]$1[/i][/b]');

@@ -4,7 +4,7 @@ import { ConversionStrategy } from '../conversion-strategy';
  * Converts markdown headers to WorldAnvil BBCode format
  */
 export class WorldAnvilHeaderConversionStrategy implements ConversionStrategy {
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     return this.convertWorldAnvilHeaders(text);
   }
 

@@ -4,7 +4,7 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown tables to BBCode format
  */
 export class TableConversionStrategy implements ConversionStrategy {
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     return this.convertTables(text);
   }
 

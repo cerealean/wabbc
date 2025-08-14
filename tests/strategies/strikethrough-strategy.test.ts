@@ -11,7 +11,7 @@ describe('StrikethroughConversionStrategy', () => {
   test('should convert strikethrough text', () => {
     const text = faker.lorem.words(2);
     const markdown = `~~${text}~~`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[s]${text}[/s]`);
   });
 
@@ -19,8 +19,8 @@ describe('StrikethroughConversionStrategy', () => {
     const text = faker.lorem.words(2);
     const markdown = `~~${text}~~`;
     
-    const bbcodeResult = strategy.convert(markdown, 'bbcode');
-    const worldanvilResult = strategy.convert(markdown, 'worldanvil');
+    const bbcodeResult = strategy.convert(markdown);
+    const worldanvilResult = strategy.convert(markdown);
     expect(bbcodeResult).toBe(worldanvilResult);
   });
 
@@ -28,21 +28,21 @@ describe('StrikethroughConversionStrategy', () => {
     const text1 = faker.lorem.word();
     const text2 = faker.lorem.word();
     const markdown = `~~${text1}~~ and ~~${text2}~~`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[s]${text1}[/s] and [s]${text2}[/s]`);
   });
 
   test('should handle single character strikethrough', () => {
     const char = faker.string.alpha(1);
     const markdown = `~~${char}~~`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[s]${char}[/s]`);
   });
 
   test('should handle strikethrough with spaces', () => {
     const text = faker.lorem.words(3);
     const markdown = `~~${text}~~`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[s]${text}[/s]`);
   });
 });

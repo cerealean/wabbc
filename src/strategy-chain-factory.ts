@@ -1,4 +1,4 @@
-import { CodeConversionStrategy } from "./strategies/code-strategy";
+import { CodeConversionStrategy as StandardCodeConversionStrategy } from "./strategies/standard/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
@@ -18,6 +18,7 @@ import { LineBreakConversionStrategy } from "./strategies/worldanvil/line-break-
 import { SuperscriptConversionStrategy } from "./strategies/worldanvil/superscript-strategy";
 import { WorldAnvilSubscriptConversionStrategy } from "./strategies/worldanvil/subscript-strategy";
 import { WorldAnvilUnderlineConversionStrategy } from "./strategies/worldanvil/underline-strategy";
+import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from "./strategies/worldanvil/code-strategy";
 
 /**
  * Factory for creating ordered strategy chains based on dependencies.
@@ -45,7 +46,7 @@ export class StrategyChainFactory {
             new EmphasisConversionStrategy(),
             new StandardImageConversionStrategy(),
             new LinkConversionStrategy(),
-            new CodeConversionStrategy(),
+            new StandardCodeConversionStrategy(),
             new StandardChecklistConversionStrategy(),
             new StandardListConversionStrategy(),
             new TableConversionStrategy(),
@@ -59,7 +60,7 @@ export class StrategyChainFactory {
             new EmphasisConversionStrategy(),
             new WorldAnvilImageConversionStrategy(),
             new LinkConversionStrategy(),
-            new CodeConversionStrategy(),
+            new WorldAnvilCodeConversionStrategy(),
             new WorldAnvilChecklistConversionStrategy(),
             new WorldAnvilListConversionStrategy(),
             new TableConversionStrategy(),
