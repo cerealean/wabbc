@@ -367,7 +367,7 @@ describe('Markdown to BBCode Converter', () => {
         test('should expose strategies for debugging', () => {
             const strategies = converter.getStrategies();
             
-            expect(strategies).toHaveLength(10);
+            expect(strategies).toHaveLength(11);
             expect(strategies.some(s => s instanceof StandardHeaderConversionStrategy)).toBeTruthy();
         });
 

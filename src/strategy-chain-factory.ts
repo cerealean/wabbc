@@ -1,6 +1,7 @@
 import { CodeConversionStrategy } from "./strategies/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
+import { HorizontalRuleConversionStrategy } from "./strategies/horizontal-rule-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
 import { StandardChecklistConversionStrategy } from "./strategies/standard/checklist-strategy";
@@ -45,7 +46,8 @@ export class StrategyChainFactory {
             new StandardListConversionStrategy(),
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
-            new StrikethroughConversionStrategy()
+            new StrikethroughConversionStrategy(),
+            new HorizontalRuleConversionStrategy()
         ]);
         
     private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> = 
@@ -59,7 +61,8 @@ export class StrategyChainFactory {
             new WorldAnvilListConversionStrategy(),
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
-            new StrikethroughConversionStrategy()
+            new StrikethroughConversionStrategy(),
+            new HorizontalRuleConversionStrategy()
         ]);
 
     /**
