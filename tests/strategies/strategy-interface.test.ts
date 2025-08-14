@@ -10,7 +10,7 @@ import { WorldAnvilListConversionStrategy } from '../../src/strategies/worldanvi
 import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 import { StrikethroughConversionStrategy } from '../../src/strategies/strikethrough-strategy';
 
-describe('Strategy Interface and Priority', () => {
+describe('Strategy Interface and Dependencies', () => {
   const strategies: ConversionStrategy[] = [
     new StandardHeaderConversionStrategy(),
     new WorldAnvilHeaderConversionStrategy(),
@@ -24,16 +24,6 @@ describe('Strategy Interface and Priority', () => {
     new StrikethroughConversionStrategy()
   ];
 
-  test('should have unique priorities in correct order', () => {
-    const priorities = strategies.map(s => s.priority);
-    const sortedPriorities = [...priorities].sort((a, b) => a - b);
-    expect(priorities).toEqual(sortedPriorities);
-
-    // Ensure no duplicate priorities
-    const uniquePriorities = [...new Set(priorities)];
-    expect(uniquePriorities).toHaveLength(priorities.length);
-  });
-
   test('should have descriptive names', () => {
     strategies.forEach(strategy => {
       expect(strategy.name).toBeTruthy();
@@ -43,20 +33,32 @@ describe('Strategy Interface and Priority', () => {
     });
   });
 
-  test('should have sequential priorities starting from 1', () => {
-    const priorities = strategies.map(s => s.priority).sort((a, b) => a - b);
-    expect(priorities).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  });
-
   test('should all implement ConversionStrategy interface', () => {
     strategies.forEach(strategy => {
       expect(strategy).toHaveProperty('convert');
-      expect(strategy).toHaveProperty('priority');
       expect(strategy).toHaveProperty('name');
       expect(typeof strategy.convert).toBe('function');
-      expect(typeof strategy.priority).toBe('number');
       expect(typeof strategy.name).toBe('string');
     });
+  });
+
+  test('should have valid dependencies', () => {
+    const strategyNames = new Set(strategies.map(s => s.name));
+    
+    strategies.forEach(strategy => {
+      if ((strategy as any).runAfter) {
+        const dependencies = (strategy as any).runAfter as string[];
+        dependencies.forEach(dep => {
+          expect(strategyNames.has(dep)).toBeTruthy(); 
+        });
+      }
+    });
+  });
+
+  test('should have LinkConversion depend on ImageConversion', () => {
+    const linkStrategy = strategies.find(s => s.name === 'LinkConversion');
+    expect(linkStrategy).toBeDefined();
+    expect((linkStrategy as any).runAfter).toEqual(['ImageConversion']);
   });
 
   test('should have expected strategy names', () => {

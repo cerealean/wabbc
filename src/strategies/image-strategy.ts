@@ -4,7 +4,6 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown images to BBCode format
  */
 export class ImageConversionStrategy implements ConversionStrategy {
-  readonly priority = 4;
   readonly name = 'ImageConversion';
 
   convert(text: string, format: 'bbcode' | 'worldanvil'): string {

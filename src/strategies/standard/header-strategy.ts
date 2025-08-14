@@ -4,7 +4,6 @@ import { ConversionStrategy } from '../conversion-strategy';
  * Converts markdown headers to traditional BBCode format
  */
 export class StandardHeaderConversionStrategy implements ConversionStrategy {
-  readonly priority = 1;
   readonly name = 'StandardHeaderConversion';
 
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {

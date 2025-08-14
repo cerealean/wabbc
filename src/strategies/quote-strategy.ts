@@ -4,7 +4,6 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown blockquotes to BBCode format
  */
 export class QuoteConversionStrategy implements ConversionStrategy {
-  readonly priority = 9;
   readonly name = 'QuoteConversion';
 
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {

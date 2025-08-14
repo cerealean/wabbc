@@ -4,7 +4,6 @@ import { ConversionStrategy } from '../conversion-strategy';
  * Converts markdown lists to WorldAnvil BBCode format
  */
 export class WorldAnvilListConversionStrategy implements ConversionStrategy {
-  readonly priority = 8;
   readonly name = 'WorldAnvilListConversion';
 
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {

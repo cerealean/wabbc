@@ -4,9 +4,9 @@ import { LinkConversionStrategy } from '../../src/strategies/link-strategy';
 describe('LinkConversionStrategy', () => {
   const strategy = new LinkConversionStrategy();
 
-  test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(5);
+  test('should have correct name and dependencies', () => {
     expect(strategy.name).toBe('LinkConversion');
+    expect(strategy.runAfter).toEqual(['ImageConversion']);
   });
 
   test('should convert markdown links', () => {

@@ -4,8 +4,7 @@ import { CodeConversionStrategy } from '../../src/strategies/code-strategy';
 describe('CodeConversionStrategy', () => {
   const strategy = new CodeConversionStrategy();
 
-  test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(6);
+  test('should have correct name', () => {
     expect(strategy.name).toBe('CodeConversion');
   });
 

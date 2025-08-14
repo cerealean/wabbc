@@ -4,8 +4,7 @@ import { StandardHeaderConversionStrategy } from '../../../src/strategies/standa
 describe('StandardHeaderConversionStrategy', () => {
   const strategy = new StandardHeaderConversionStrategy();
 
-  test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(1);
+  test('should have correct name', () => {
     expect(strategy.name).toBe('StandardHeaderConversion');
   });
 

@@ -11,12 +11,13 @@ export interface ConversionStrategy {
   convert(text: string, format: 'bbcode' | 'worldanvil'): string;
   
   /**
-   * Priority order for this strategy (lower numbers run first)
-   */
-  readonly priority: number;
-  
-  /**
-   * Name of this strategy for debugging
+   * Name of this strategy for debugging and dependency resolution
    */
   readonly name: string;
+  
+  /**
+   * Optional array of strategy names that this strategy must run after
+   * Used for automatic dependency-based ordering
+   */
+  readonly runAfter?: readonly string[];
 }

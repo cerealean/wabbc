@@ -4,8 +4,7 @@ import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 describe('QuoteConversionStrategy', () => {
   const strategy = new QuoteConversionStrategy();
 
-  test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(9);
+  test('should have correct name', () => {
     expect(strategy.name).toBe('QuoteConversion');
   });
 

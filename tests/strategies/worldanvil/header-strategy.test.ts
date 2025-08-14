@@ -4,8 +4,7 @@ import { WorldAnvilHeaderConversionStrategy } from '../../../src/strategies/worl
 describe('WorldAnvilHeaderConversionStrategy', () => {
   const strategy = new WorldAnvilHeaderConversionStrategy();
 
-  test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(2);
+  test('should have correct name', () => {
     expect(strategy.name).toBe('WorldAnvilHeaderConversion');
   });
 

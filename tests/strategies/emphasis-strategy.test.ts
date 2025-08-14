@@ -4,8 +4,7 @@ import { EmphasisConversionStrategy } from '../../src/strategies/emphasis-strate
 describe('EmphasisConversionStrategy', () => {
   const strategy = new EmphasisConversionStrategy();
 
-  test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(3);
+  test('should have correct name', () => {
     expect(strategy.name).toBe('EmphasisConversion');
   });
 

@@ -364,16 +364,17 @@ describe('Markdown to BBCode Converter', () => {
             const strategies = converter.getStrategies();
             
             expect(strategies).toHaveLength(8);
-            expect(strategies[0]?.name).toBe('StandardHeaderConversion');
-            expect(strategies[0]?.priority).toBe(1);
+            expect(strategies.some(s => s.name === 'StandardHeaderConversion')).toBeTruthy();
         });
 
-        test('should maintain strategy order by priority', () => {
+        test('should have LinkConversion after ImageConversion due to dependency', () => {
             const strategies = converter.getStrategies();
+            const imageIndex = strategies.findIndex(s => s.name === 'ImageConversion');
+            const linkIndex = strategies.findIndex(s => s.name === 'LinkConversion');
             
-            for (let i = 1; i < strategies.length; i++) {
-                expect(strategies[i]?.priority).toBeGreaterThanOrEqual(strategies[i - 1]?.priority ?? 0);
-            }
+            expect(imageIndex).toBeGreaterThanOrEqual(0);
+            expect(linkIndex).toBeGreaterThanOrEqual(0);
+            expect(linkIndex).toBeGreaterThan(imageIndex);
         });
 
         test('should return a copy of strategies array', () => {

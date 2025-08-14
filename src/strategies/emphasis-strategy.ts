@@ -4,7 +4,6 @@ import { ConversionStrategy } from './conversion-strategy';
  * Converts markdown emphasis to BBCode format
  */
 export class EmphasisConversionStrategy implements ConversionStrategy {
-  readonly priority = 3;
   readonly name = 'EmphasisConversion';
 
   convert(text: string, _format: 'bbcode' | 'worldanvil'): string {

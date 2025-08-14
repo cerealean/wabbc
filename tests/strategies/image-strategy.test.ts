@@ -4,9 +4,9 @@ import { ImageConversionStrategy } from '../../src/strategies/image-strategy';
 describe('ImageConversionStrategy', () => {
   const strategy = new ImageConversionStrategy();
 
-  test('should have correct priority and name', () => {
-    expect(strategy.priority).toBe(4);
+  test('should have correct name and no dependencies', () => {
     expect(strategy.name).toBe('ImageConversion');
+    expect((strategy as any).runAfter).toBeUndefined();
   });
 
   test('should convert images to traditional BBCode', () => {
