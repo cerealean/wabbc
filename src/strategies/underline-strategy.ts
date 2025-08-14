@@ -1,4 +1,4 @@
-import { ConversionStrategy } from '../conversion-strategy';
+import { ConversionStrategy } from './conversion-strategy';
 
 /**
  * Converts HTML <ins> tags to BBCode format for WorldAnvil

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { LineBreakConversionStrategy } from '../../src/strategies/worldanvil/line-break-strategy';
+import { LineBreakConversionStrategy } from '../../src/strategies/line-break-strategy';
 
 describe('WorldAnvil LineBreakConversionStrategy', () => {
   const strategy = new LineBreakConversionStrategy();

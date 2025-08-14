@@ -1,5 +1,5 @@
-import { ConversionStrategy } from '../conversion-strategy';
-import { LinkConversionStrategy } from '../link-strategy';
+import { ConversionStrategy } from './conversion-strategy';
+import { LinkConversionStrategy } from './link-strategy';
 
 /**
  * Converts markdown images to WorldAnvil BBCode format

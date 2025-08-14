@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { WorldAnvilDiceConversionStrategy } from '../../src/strategies/worldanvil/dice-strategy';
+import { WorldAnvilDiceConversionStrategy } from '../../src/strategies/dice-strategy';
 
 describe('WorldAnvilDiceConversionStrategy', () => {
   const strategy = new WorldAnvilDiceConversionStrategy();

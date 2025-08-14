@@ -1,7 +1,7 @@
 import { StrategyChainFactory } from '../src/strategy-chain-factory';
 import { ConversionStrategy } from '../src/strategies/conversion-strategy';
 import { LinkConversionStrategy } from '../src/strategies/link-strategy';
-import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../src/strategies/worldanvil/image-strategy';
+import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../src/strategies/image-strategy';
 
 describe('StrategyChainFactory', () => {
   describe('getStrategies', () => {

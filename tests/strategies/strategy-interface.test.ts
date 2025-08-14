@@ -1,11 +1,11 @@
 import { ConversionStrategy } from '../../src/strategies/conversion-strategy';
 import { EmphasisConversionStrategy } from '../../src/strategies/emphasis-strategy';
-import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../../src/strategies/worldanvil/image-strategy';
+import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../../src/strategies/image-strategy';
 import { LinkConversionStrategy } from '../../src/strategies/link-strategy';
-import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from '../../src/strategies/worldanvil/code-strategy';
-import { WorldAnvilHeaderConversionStrategy } from '../../src/strategies/worldanvil/header-strategy';
-import { WorldAnvilListConversionStrategy } from '../../src/strategies/worldanvil/list-strategy';
-import { WorldAnvilDiceConversionStrategy } from '../../src/strategies/worldanvil/dice-strategy';
+import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from '../../src/strategies/code-strategy';
+import { WorldAnvilHeaderConversionStrategy } from '../../src/strategies/header-strategy';
+import { WorldAnvilListConversionStrategy } from '../../src/strategies/list-strategy';
+import { WorldAnvilDiceConversionStrategy } from '../../src/strategies/dice-strategy';
 import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 import { StrikethroughConversionStrategy } from '../../src/strategies/strikethrough-strategy';
 

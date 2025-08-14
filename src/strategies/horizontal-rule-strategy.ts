@@ -1,5 +1,5 @@
-import { ConversionStrategy } from '../conversion-strategy';
-import { EmphasisConversionStrategy } from '../emphasis-strategy';
+import { ConversionStrategy } from './conversion-strategy';
+import { EmphasisConversionStrategy } from './emphasis-strategy';
 
 /**
  * Converts markdown horizontal rules to WorldAnvil BBCode format

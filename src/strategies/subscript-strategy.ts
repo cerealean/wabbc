@@ -1,4 +1,4 @@
-import { ConversionStrategy } from '../conversion-strategy';
+import { ConversionStrategy } from './conversion-strategy';
 
 /**
  * Converts HTML subscript tags to WorldAnvil BBCode format

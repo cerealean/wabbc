@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { WorldAnvilSubscriptConversionStrategy } from '../../src/strategies/worldanvil/subscript-strategy';
+import { WorldAnvilSubscriptConversionStrategy } from '../../src/strategies/subscript-strategy';
 
 describe('WorldAnvilSubscriptConversionStrategy', () => {
   const strategy = new WorldAnvilSubscriptConversionStrategy();

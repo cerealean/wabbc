@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { CodeConversionStrategy } from '../../src/strategies/worldanvil/code-strategy';
+import { CodeConversionStrategy } from '../../src/strategies/code-strategy';
 
 describe('WorldAnvil CodeConversionStrategy', () => {
   const strategy = new CodeConversionStrategy();

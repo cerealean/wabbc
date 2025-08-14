@@ -1,8 +1,8 @@
 import { 
     Converter
 } from '../src/converter';
-import { WorldAnvilHeaderConversionStrategy } from '../src/strategies/worldanvil/header-strategy';
-import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../src/strategies/worldanvil/image-strategy';
+import { WorldAnvilHeaderConversionStrategy } from '../src/strategies/header-strategy';
+import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../src/strategies/image-strategy';
 import { LinkConversionStrategy } from '../src/strategies/link-strategy';
 import { faker } from '@faker-js/faker';
 

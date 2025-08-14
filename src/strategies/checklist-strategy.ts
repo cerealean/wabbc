@@ -1,4 +1,4 @@
-import { ConversionStrategy } from '../conversion-strategy';
+import { ConversionStrategy } from './conversion-strategy';
 import { WorldAnvilListConversionStrategy } from './list-strategy';
 
 /**

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { WorldAnvilUnderlineConversionStrategy } from '../../src/strategies/worldanvil/underline-strategy';
+import { WorldAnvilUnderlineConversionStrategy } from '../../src/strategies/underline-strategy';
 
 describe('WorldAnvilUnderlineConversionStrategy', () => {
   const strategy = new WorldAnvilUnderlineConversionStrategy();

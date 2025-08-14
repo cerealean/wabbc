@@ -1,4 +1,4 @@
-import { ConversionStrategy } from '../conversion-strategy';
+import { ConversionStrategy } from './conversion-strategy';
 
 /**
  * Converts markdown line breaks to WorldAnvil BBCode format

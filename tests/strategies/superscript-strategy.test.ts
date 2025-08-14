@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { SuperscriptConversionStrategy } from '../../src/strategies/worldanvil/superscript-strategy';
+import { SuperscriptConversionStrategy } from '../../src/strategies/superscript-strategy';
 
 describe('SuperscriptConversionStrategy', () => {
   const strategy = new SuperscriptConversionStrategy();

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { WorldAnvilHorizontalRuleConversionStrategy } from '../../src/strategies/worldanvil/horizontal-rule-strategy';
+import { WorldAnvilHorizontalRuleConversionStrategy } from '../../src/strategies/horizontal-rule-strategy';
 
 describe('WorldAnvilHorizontalRuleConversionStrategy', () => {
   const strategy = new WorldAnvilHorizontalRuleConversionStrategy();

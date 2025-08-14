@@ -1,4 +1,4 @@
-import { ConversionStrategy } from '../conversion-strategy';
+import { ConversionStrategy } from './conversion-strategy';
 
 /**
  * Converts markdown headers to WorldAnvil BBCode format

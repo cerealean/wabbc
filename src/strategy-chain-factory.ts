@@ -3,18 +3,18 @@ import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
-import { WorldAnvilDiceConversionStrategy } from "./strategies/worldanvil/dice-strategy";
-import { WorldAnvilChecklistConversionStrategy } from "./strategies/worldanvil/checklist-strategy";
+import { WorldAnvilDiceConversionStrategy } from "./strategies/dice-strategy";
+import { WorldAnvilChecklistConversionStrategy } from "./strategies/checklist-strategy";
 import { TableConversionStrategy } from "./strategies/table-strategy";
-import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
-import { WorldAnvilHorizontalRuleConversionStrategy } from "./strategies/worldanvil/horizontal-rule-strategy";
-import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
-import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
-import { LineBreakConversionStrategy } from "./strategies/worldanvil/line-break-strategy";
-import { SuperscriptConversionStrategy } from "./strategies/worldanvil/superscript-strategy";
-import { WorldAnvilSubscriptConversionStrategy } from "./strategies/worldanvil/subscript-strategy";
-import { WorldAnvilUnderlineConversionStrategy } from "./strategies/worldanvil/underline-strategy";
-import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from "./strategies/worldanvil/code-strategy";
+import { WorldAnvilHeaderConversionStrategy } from "./strategies/header-strategy";
+import { WorldAnvilHorizontalRuleConversionStrategy } from "./strategies/horizontal-rule-strategy";
+import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/image-strategy";
+import { WorldAnvilListConversionStrategy } from "./strategies/list-strategy";
+import { LineBreakConversionStrategy } from "./strategies/line-break-strategy";
+import { SuperscriptConversionStrategy } from "./strategies/superscript-strategy";
+import { WorldAnvilSubscriptConversionStrategy } from "./strategies/subscript-strategy";
+import { WorldAnvilUnderlineConversionStrategy } from "./strategies/underline-strategy";
+import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from "./strategies/code-strategy";
 
 /**
  * Factory for creating ordered strategy chains based on dependencies.
