@@ -14,6 +14,7 @@ import { TableConversionStrategy } from "./strategies/table-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
+import { WorldAnvilUnderlineConversionStrategy } from "./strategies/worldanvil/underline-strategy";
 
 /**
  * Factory for creating ordered strategy chains based on dependencies.
@@ -62,6 +63,7 @@ export class StrategyChainFactory {
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy(),
             new WorldAnvilDiceConversionStrategy()
+            new WorldAnvilUnderlineConversionStrategy()
         ]);
 
     /**
