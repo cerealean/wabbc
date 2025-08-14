@@ -1,14 +1,15 @@
-import { ChecklistConversionStrategy } from "./strategies/checklist-strategy";
 import { CodeConversionStrategy } from "./strategies/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
+import { StandardChecklistConversionStrategy } from "./strategies/standard/checklist-strategy";
 import { StandardHeaderConversionStrategy } from "./strategies/standard/header-strategy";
 import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StandardTableConversionStrategy } from "./strategies/standard/table-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
+import { WorldAnvilChecklistConversionStrategy } from "./strategies/worldanvil/checklist-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
@@ -41,7 +42,7 @@ export class StrategyChainFactory {
             new StandardImageConversionStrategy(),
             new LinkConversionStrategy(),
             new CodeConversionStrategy(),
-            new ChecklistConversionStrategy(),
+            new StandardChecklistConversionStrategy(),
             new StandardListConversionStrategy(),
             new StandardTableConversionStrategy(),
             new QuoteConversionStrategy(),
@@ -55,7 +56,7 @@ export class StrategyChainFactory {
             new WorldAnvilImageConversionStrategy(),
             new LinkConversionStrategy(),
             new CodeConversionStrategy(),
-            new ChecklistConversionStrategy(),
+            new WorldAnvilChecklistConversionStrategy(),
             new WorldAnvilListConversionStrategy(),
             new WorldAnvilTableConversionStrategy(),
             new QuoteConversionStrategy(),
