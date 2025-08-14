@@ -28,6 +28,13 @@ console.log("Hello, world!");
 2. Second item
 3. Third item
 
+### Checklists
+- [ ] Unchecked item
+- [x] Checked item
+- [X] Another checked item
+  - [ ] Nested unchecked
+  - [x] Nested checked
+
 > This is a quote
 > that spans multiple lines
 
