@@ -38,7 +38,7 @@ import { WorldAnvilUnderlineConversionStrategy } from "./strategies/worldanvil/u
  * ```
  */
 export class StrategyChainFactory {
-    private static readonly bbcodeStrategies: ReadonlyArray<ConversionStrategy> = 
+    private static readonly bbcodeStrategies: ReadonlyArray<ConversionStrategy> =
         StrategyChainFactory.sortStrategiesByDependencies([
             new StandardHeaderConversionStrategy(),
             new EmphasisConversionStrategy(),
@@ -51,8 +51,8 @@ export class StrategyChainFactory {
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy()
         ]);
-        
-    private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> = 
+
+    private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> =
         StrategyChainFactory.sortStrategiesByDependencies([
             new WorldAnvilHeaderConversionStrategy(),
             new EmphasisConversionStrategy(),
@@ -117,15 +117,15 @@ export class StrategyChainFactory {
             }
 
             visiting.add(strategyConstructor);
-            
+
             const dependencies = dependencyMap.get(strategyConstructor) || [];
             for (const dep of dependencies) {
                 visit(dep);
             }
-            
+
             visiting.delete(strategyConstructor);
             visited.add(strategyConstructor);
-            
+
             const strategy = strategyMap.get(strategyConstructor);
             if (strategy) {
                 result.push(strategy);
