@@ -5,7 +5,7 @@ import { LinkConversionStrategy } from "./strategies/link-strategy";
 import { QuoteConversionStrategy } from "./strategies/quote-strategy";
 import { StandardChecklistConversionStrategy } from "./strategies/standard/checklist-strategy";
 import { StandardHeaderConversionStrategy } from "./strategies/standard/header-strategy";
-import { StandardHorizontalRuleConversionStrategy } from "./strategies/standard/horizontal-rule-strategy";
+
 import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
@@ -53,8 +53,7 @@ export class StrategyChainFactory {
             new StandardListConversionStrategy(),
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
-            new StrikethroughConversionStrategy(),
-            new StandardHorizontalRuleConversionStrategy()
+            new StrikethroughConversionStrategy()
         ]);
 
     private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> =
