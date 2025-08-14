@@ -22,6 +22,6 @@ export class WorldAnvilDiceConversionStrategy implements ConversionStrategy {
     // Matches patterns like: 3d6, 1d20, 100d8, 3d6+3, 2d4-2, 1d100+10
     const diceRegex = /\b(\d+d\d+(?:[+-]\d+)?)\b/g;
     
-    return text.replace(diceRegex, '[dice]$1[/dice]');
+    return text.replace(diceRegex, '[roll:$1]');
   }
 }
