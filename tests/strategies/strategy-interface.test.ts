@@ -8,6 +8,7 @@ import { StandardHeaderConversionStrategy } from '../../src/strategies/standard/
 import { StandardListConversionStrategy } from '../../src/strategies/standard/list-strategy';
 import { WorldAnvilHeaderConversionStrategy } from '../../src/strategies/worldanvil/header-strategy';
 import { WorldAnvilListConversionStrategy } from '../../src/strategies/worldanvil/list-strategy';
+import { WorldAnvilDiceConversionStrategy } from '../../src/strategies/worldanvil/dice-strategy';
 import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 import { StrikethroughConversionStrategy } from '../../src/strategies/strikethrough-strategy';
 
@@ -23,7 +24,8 @@ describe('Strategy Interface and Dependencies', () => {
     new StandardListConversionStrategy(),
     new WorldAnvilListConversionStrategy(),
     new QuoteConversionStrategy(),
-    new StrikethroughConversionStrategy()
+    new StrikethroughConversionStrategy(),
+    new WorldAnvilDiceConversionStrategy()
   ];
 
   test('should all implement ConversionStrategy interface', () => {
@@ -67,6 +69,7 @@ describe('Strategy Interface and Dependencies', () => {
       'StandardHeaderConversionStrategy',
       'StandardListConversionStrategy',
       'StrikethroughConversionStrategy',
+      'WorldAnvilDiceConversionStrategy',
       'WorldAnvilHeaderConversionStrategy',
       'WorldAnvilListConversionStrategy'
     ];
