@@ -13,7 +13,7 @@ describe('StandardListConversionStrategy', () => {
       const item1 = faker.lorem.words(2);
       const item2 = faker.lorem.words(3);
       const markdown = `- ${item1}\n- ${item2}`;
-      const result = strategy.convert(markdown, 'bbcode');
+      const result = strategy.convert(markdown);
       expect(result).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
     });
 
@@ -21,7 +21,7 @@ describe('StandardListConversionStrategy', () => {
       const item1 = faker.lorem.words(2);
       const item2 = faker.lorem.words(3);
       const markdown = `1. ${item1}\n2. ${item2}`;
-      const result = strategy.convert(markdown, 'bbcode');
+      const result = strategy.convert(markdown);
       expect(result).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
     });
 
@@ -29,9 +29,9 @@ describe('StandardListConversionStrategy', () => {
       const item1 = faker.lorem.words(2);
       const item2 = faker.lorem.words(2);
       
-      expect(strategy.convert(`- ${item1}\n- ${item2}`, 'bbcode')).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
-      expect(strategy.convert(`* ${item1}\n* ${item2}`, 'bbcode')).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
-      expect(strategy.convert(`+ ${item1}\n+ ${item2}`, 'bbcode')).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+      expect(strategy.convert(`- ${item1}\n- ${item2}`)).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+      expect(strategy.convert(`* ${item1}\n* ${item2}`)).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
+      expect(strategy.convert(`+ ${item1}\n+ ${item2}`)).toBe(`[list]\n[*] ${item1}\n[*] ${item2}\n[/list]\n`);
     });
 
     test('should handle nested lists with indentation', () => {
@@ -40,7 +40,7 @@ describe('StandardListConversionStrategy', () => {
       const item2 = faker.lorem.words(2);
       
       const markdown = `- ${item1}\n  - ${nestedItem}\n- ${item2}`;
-      const result = strategy.convert(markdown, 'bbcode');
+      const result = strategy.convert(markdown);
       expect(result).toBe(`[list]\n[*] ${item1}\n  [*] ${nestedItem}\n[*] ${item2}\n[/list]\n`);
     });
   });

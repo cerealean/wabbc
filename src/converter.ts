@@ -51,7 +51,7 @@ export class Converter {
         
         // Apply all strategies in order
         const result = this.strategies.reduce(
-            (text, strategy) => strategy.convert(text, this.format),
+            (text, strategy) => strategy.convert(text),
             markdown
         );
         

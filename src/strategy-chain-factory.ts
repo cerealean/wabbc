@@ -1,4 +1,4 @@
-import { CodeConversionStrategy } from "./strategies/code-strategy";
+import { CodeConversionStrategy as StandardCodeConversionStrategy } from "./strategies/standard/code-strategy";
 import type { ConversionStrategy } from "./strategies/conversion-strategy";
 import { EmphasisConversionStrategy } from "./strategies/emphasis-strategy";
 import { LinkConversionStrategy } from "./strategies/link-strategy";
@@ -9,12 +9,18 @@ import { StandardHorizontalRuleConversionStrategy } from "./strategies/standard/
 import { ImageConversionStrategy as StandardImageConversionStrategy } from "./strategies/standard/image-strategy";
 import { StandardListConversionStrategy } from "./strategies/standard/list-strategy";
 import { StrikethroughConversionStrategy } from "./strategies/strikethrough-strategy";
+import { WorldAnvilDiceConversionStrategy } from "./strategies/worldanvil/dice-strategy";
 import { WorldAnvilChecklistConversionStrategy } from "./strategies/worldanvil/checklist-strategy";
 import { TableConversionStrategy } from "./strategies/table-strategy";
 import { WorldAnvilHeaderConversionStrategy } from "./strategies/worldanvil/header-strategy";
 import { WorldAnvilHorizontalRuleConversionStrategy } from "./strategies/worldanvil/horizontal-rule-strategy";
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from "./strategies/worldanvil/image-strategy";
 import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-strategy";
+import { LineBreakConversionStrategy } from "./strategies/worldanvil/line-break-strategy";
+import { SuperscriptConversionStrategy } from "./strategies/worldanvil/superscript-strategy";
+import { WorldAnvilSubscriptConversionStrategy } from "./strategies/worldanvil/subscript-strategy";
+import { WorldAnvilUnderlineConversionStrategy } from "./strategies/worldanvil/underline-strategy";
+import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from "./strategies/worldanvil/code-strategy";
 
 /**
  * Factory for creating ordered strategy chains based on dependencies.
@@ -36,13 +42,13 @@ import { WorldAnvilListConversionStrategy } from "./strategies/worldanvil/list-s
  * ```
  */
 export class StrategyChainFactory {
-    private static readonly bbcodeStrategies: ReadonlyArray<ConversionStrategy> = 
+    private static readonly bbcodeStrategies: ReadonlyArray<ConversionStrategy> =
         StrategyChainFactory.sortStrategiesByDependencies([
             new StandardHeaderConversionStrategy(),
             new EmphasisConversionStrategy(),
             new StandardImageConversionStrategy(),
             new LinkConversionStrategy(),
-            new CodeConversionStrategy(),
+            new StandardCodeConversionStrategy(),
             new StandardChecklistConversionStrategy(),
             new StandardListConversionStrategy(),
             new TableConversionStrategy(),
@@ -50,20 +56,25 @@ export class StrategyChainFactory {
             new StrikethroughConversionStrategy(),
             new StandardHorizontalRuleConversionStrategy()
         ]);
-        
-    private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> = 
+
+    private static readonly worldanvilStrategies: ReadonlyArray<ConversionStrategy> =
         StrategyChainFactory.sortStrategiesByDependencies([
             new WorldAnvilHeaderConversionStrategy(),
             new EmphasisConversionStrategy(),
             new WorldAnvilImageConversionStrategy(),
             new LinkConversionStrategy(),
-            new CodeConversionStrategy(),
+            new WorldAnvilCodeConversionStrategy(),
             new WorldAnvilChecklistConversionStrategy(),
             new WorldAnvilListConversionStrategy(),
             new TableConversionStrategy(),
             new QuoteConversionStrategy(),
             new StrikethroughConversionStrategy(),
-            new WorldAnvilHorizontalRuleConversionStrategy()
+            new WorldAnvilHorizontalRuleConversionStrategy(),
+            new LineBreakConversionStrategy(),
+            new SuperscriptConversionStrategy(),
+            new WorldAnvilSubscriptConversionStrategy(),
+            new WorldAnvilDiceConversionStrategy(),
+            new WorldAnvilUnderlineConversionStrategy()
         ]);
 
     /**
@@ -113,15 +124,15 @@ export class StrategyChainFactory {
             }
 
             visiting.add(strategyConstructor);
-            
+
             const dependencies = dependencyMap.get(strategyConstructor) || [];
             for (const dep of dependencies) {
                 visit(dep);
             }
-            
+
             visiting.delete(strategyConstructor);
             visited.add(strategyConstructor);
-            
+
             const strategy = strategyMap.get(strategyConstructor);
             if (strategy) {
                 result.push(strategy);

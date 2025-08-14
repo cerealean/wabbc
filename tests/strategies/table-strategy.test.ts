@@ -30,7 +30,7 @@ describe('TableConversionStrategy', () => {
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
 
@@ -39,8 +39,8 @@ describe('TableConversionStrategy', () => {
 |----------|----------|
 | Cell 1   | Cell 2   |`;
 
-      const bbcodeResult = strategy.convert(input, 'bbcode');
-      const worldanvilResult = strategy.convert(input, 'worldanvil');
+      const bbcodeResult = strategy.convert(input);
+      const worldanvilResult = strategy.convert(input);
       
       expect(bbcodeResult).toBe(worldanvilResult);
     });
@@ -70,7 +70,7 @@ describe('TableConversionStrategy', () => {
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
 
@@ -99,7 +99,7 @@ describe('TableConversionStrategy', () => {
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
 
@@ -128,7 +128,7 @@ describe('TableConversionStrategy', () => {
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
 
@@ -173,7 +173,7 @@ Second table:
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
 
@@ -196,7 +196,7 @@ Second table:
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
 
@@ -206,7 +206,7 @@ Just some regular text.
 | This might look like | a table header |
 But it's missing the separator line.`;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(input);
     });
 
@@ -229,7 +229,7 @@ But it's missing the separator line.`;
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
 
@@ -258,7 +258,7 @@ But it's missing the separator line.`;
 [/table]
 `;
 
-      const result = strategy.convert(input, 'bbcode');
+      const result = strategy.convert(input);
       expect(result).toBe(expected);
     });
   });

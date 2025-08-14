@@ -14,7 +14,7 @@ import { StandardListConversionStrategy } from './list-strategy';
 export class StandardChecklistConversionStrategy implements ConversionStrategy {
   readonly runBefore = [StandardListConversionStrategy] as const;
 
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     return this.convertStandardChecklists(text);
   }
 

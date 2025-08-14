@@ -4,7 +4,7 @@ import { ConversionStrategy } from '../conversion-strategy';
  * Converts markdown lists to WorldAnvil BBCode format
  */
 export class WorldAnvilListConversionStrategy implements ConversionStrategy {
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     return this.convertWorldAnvilLists(text);
   }
 

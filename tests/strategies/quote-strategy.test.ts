@@ -11,7 +11,7 @@ describe('QuoteConversionStrategy', () => {
   test('should convert block quotes', () => {
     const quote = faker.lorem.sentence();
     const markdown = `> ${quote}`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[quote]${quote}[/quote]`);
   });
 
@@ -19,7 +19,7 @@ describe('QuoteConversionStrategy', () => {
     const quote1 = faker.lorem.sentence();
     const quote2 = faker.lorem.sentence();
     const markdown = `> ${quote1}\n> ${quote2}`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[quote]${quote1}\n${quote2}[/quote]`);
   });
 
@@ -27,8 +27,8 @@ describe('QuoteConversionStrategy', () => {
     const quote = faker.lorem.sentence();
     const markdown = `> ${quote}`;
     
-    const bbcodeResult = strategy.convert(markdown, 'bbcode');
-    const worldanvilResult = strategy.convert(markdown, 'worldanvil');
+    const bbcodeResult = strategy.convert(markdown);
+    const worldanvilResult = strategy.convert(markdown);
     expect(bbcodeResult).toBe(worldanvilResult);
   });
 
@@ -36,14 +36,14 @@ describe('QuoteConversionStrategy', () => {
     const quote1 = faker.lorem.sentence();
     const quote2 = faker.lorem.sentence();
     const markdown = `> ${quote1}\n\nSome text\n\n> ${quote2}`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[quote]${quote1}[/quote]\n\nSome text\n\n[quote]${quote2}[/quote]`);
   });
 
   test('should handle quotes with leading spaces', () => {
     const quote = faker.lorem.sentence();
     const markdown = `>    ${quote}`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[quote]${quote}[/quote]`);
   });
 
@@ -53,7 +53,7 @@ describe('QuoteConversionStrategy', () => {
     const line3 = faker.lorem.sentence();
     
     const markdown = `> ${line1}\n> ${line2}\n> ${line3}`;
-    const result = strategy.convert(markdown, 'bbcode');
+    const result = strategy.convert(markdown);
     expect(result).toBe(`[quote]${line1}\n${line2}\n${line3}[/quote]`);
   });
 });

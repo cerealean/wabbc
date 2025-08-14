@@ -14,7 +14,7 @@ import { WorldAnvilListConversionStrategy } from './list-strategy';
 export class WorldAnvilChecklistConversionStrategy implements ConversionStrategy {
   readonly runBefore = [WorldAnvilListConversionStrategy] as const;
 
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     return this.convertWorldAnvilChecklists(text);
   }
 

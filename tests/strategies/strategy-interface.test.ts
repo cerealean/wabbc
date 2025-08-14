@@ -3,11 +3,13 @@ import { EmphasisConversionStrategy } from '../../src/strategies/emphasis-strate
 import { ImageConversionStrategy as StandardImageConversionStrategy } from '../../src/strategies/standard/image-strategy';
 import { ImageConversionStrategy as WorldAnvilImageConversionStrategy } from '../../src/strategies/worldanvil/image-strategy';
 import { LinkConversionStrategy } from '../../src/strategies/link-strategy';
-import { CodeConversionStrategy } from '../../src/strategies/code-strategy';
+import { CodeConversionStrategy as StandardCodeConversionStrategy } from '../../src/strategies/standard/code-strategy';
+import { CodeConversionStrategy as WorldAnvilCodeConversionStrategy } from '../../src/strategies/worldanvil/code-strategy';
 import { StandardHeaderConversionStrategy } from '../../src/strategies/standard/header-strategy';
 import { StandardListConversionStrategy } from '../../src/strategies/standard/list-strategy';
 import { WorldAnvilHeaderConversionStrategy } from '../../src/strategies/worldanvil/header-strategy';
 import { WorldAnvilListConversionStrategy } from '../../src/strategies/worldanvil/list-strategy';
+import { WorldAnvilDiceConversionStrategy } from '../../src/strategies/worldanvil/dice-strategy';
 import { QuoteConversionStrategy } from '../../src/strategies/quote-strategy';
 import { StrikethroughConversionStrategy } from '../../src/strategies/strikethrough-strategy';
 
@@ -19,11 +21,13 @@ describe('Strategy Interface and Dependencies', () => {
     new StandardImageConversionStrategy(),
     new WorldAnvilImageConversionStrategy(),
     new LinkConversionStrategy(),
-    new CodeConversionStrategy(),
+    new StandardCodeConversionStrategy(),
+    new WorldAnvilCodeConversionStrategy(),
     new StandardListConversionStrategy(),
     new WorldAnvilListConversionStrategy(),
     new QuoteConversionStrategy(),
-    new StrikethroughConversionStrategy()
+    new StrikethroughConversionStrategy(),
+    new WorldAnvilDiceConversionStrategy()
   ];
 
   test('should all implement ConversionStrategy interface', () => {
@@ -58,7 +62,8 @@ describe('Strategy Interface and Dependencies', () => {
   test('should have expected strategy types', () => {
     const strategyTypes = strategies.map(s => s.constructor.name).sort();
     const expectedTypes = [
-      'CodeConversionStrategy',
+      'CodeConversionStrategy', // Standard version
+      'CodeConversionStrategy', // WorldAnvil version
       'EmphasisConversionStrategy',
       'ImageConversionStrategy', // Standard version
       'ImageConversionStrategy', // WorldAnvil version  
@@ -67,6 +72,7 @@ describe('Strategy Interface and Dependencies', () => {
       'StandardHeaderConversionStrategy',
       'StandardListConversionStrategy',
       'StrikethroughConversionStrategy',
+      'WorldAnvilDiceConversionStrategy',
       'WorldAnvilHeaderConversionStrategy',
       'WorldAnvilListConversionStrategy'
     ];

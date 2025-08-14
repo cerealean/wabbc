@@ -4,7 +4,7 @@ import { ConversionStrategy } from '../conversion-strategy';
  * Converts markdown lists to traditional BBCode format
  */
 export class StandardListConversionStrategy implements ConversionStrategy {
-  convert(text: string, _format: 'bbcode' | 'worldanvil'): string {
+  convert(text: string): string {
     return this.convertTraditionalLists(text);
   }
 
