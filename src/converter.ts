@@ -4,14 +4,7 @@
  */
 
 import { ConversionStrategy } from './strategies/conversion-strategy';
-import { HeaderConversionStrategy } from './strategies/header-strategy';
-import { EmphasisConversionStrategy } from './strategies/emphasis-strategy';
-import { ImageConversionStrategy } from './strategies/image-strategy';
-import { LinkConversionStrategy } from './strategies/link-strategy';
-import { CodeConversionStrategy } from './strategies/code-strategy';
-import { ListConversionStrategy } from './strategies/list-strategy';
-import { QuoteConversionStrategy } from './strategies/quote-strategy';
-import { StrikethroughConversionStrategy } from './strategies/strikethrough-strategy';
+import { StrategyChainFactory } from './strategy-chain-factory';
 
 /**
  * Options for converting markdown to BBCode
@@ -26,7 +19,7 @@ export interface ConversionOptions {
  */
 export class Converter {
     private format: 'bbcode' | 'worldanvil';
-    private strategies: ConversionStrategy[];
+    private readonly strategies: ReadonlyArray<ConversionStrategy>;
 
     /**
      * Creates a new Converter instance
@@ -42,16 +35,7 @@ export class Converter {
         this.format = format;
         
         // Initialize strategies in priority order
-        this.strategies = [
-            new HeaderConversionStrategy(),
-            new EmphasisConversionStrategy(),
-            new ImageConversionStrategy(), // Must come before links
-            new LinkConversionStrategy(),
-            new CodeConversionStrategy(),
-            new ListConversionStrategy(),
-            new QuoteConversionStrategy(),
-            new StrikethroughConversionStrategy()
-        ].sort((a, b) => a.priority - b.priority);
+        this.strategies = StrategyChainFactory.getStrategies(this.format);
     }
 
     /**
