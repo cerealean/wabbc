@@ -1,0 +1,65 @@
+[h1]Kharakthi — Stoneborn of the Deep[/h1]
+[quote]“The mountain speaks in echoes. We are its answer.”[/quote]
+
+[hr]
+
+[h2]Lore Snapshot[/h2]
+Humanoid and angular, the Kharakthi grow overlapping [i]keratin plates[/i] along arms, shins, spine, and shoulders. Their skin between plates is thick, textured, and earth-toned; their voices are low and resonant. Beneath mountain empires they carve vast cities and “sing” through stone using Tremorspeak—clicks, scrapes, and rumbles that carry for great distances. Social class is literally worn on the body: those who can afford precious metals and gems to ingest display luminous, jewel-toned plates that gleam in torchlight.
+
+[hr]
+
+[h2]Kharakthi Traits[/h2]
+- [b]Creature Type.[/b] Humanoid
+- [b]Size.[/b] Medium (typically 5 to 7 feet tall, densely built)
+- [b]Speed.[/b] Your walking speed is 30 feet. You also have a burrow speed of 20 feet through soil, sand, loose gravel, or unworked soft stone. You cannot burrow through worked stone or metal. (DM variant below.)
+- [b]Ability Score Increase.[/b] Use the 2024/Custom Origin approach: Increase one ability score by +2 and another by +1, or increase three different scores by +1 each.
+- [b]Languages.[/b] You can speak, read, and write Common and Tremorspeak. Tremorspeak is made of clicks, scrapes, and rhythmic knocks transmitted through solid material; it travels poorly in open air.
+
+[h3]Senses[/h3]
+- [b]Blindsight 5 ft.[/b] Within 5 feet you perceive without relying on sight.
+- [b]Tremorsense 30 ft.[/b] You perceive vibrations through solid surfaces within 30 feet with clarity [b]only if both you and the sensed creature are in contact with the same continuous solid surface[/b] (floor, wall, connected stone, etc.). Creatures not sharing that contact—such as those [b]airborne, levitating, falling, swimming in open water, or on an isolated platform[/b]—are [i]unseen[/i] to you beyond 5 feet.
+-- [i]Distant Tremor Reading (30 more feet).[/i] Out to 60 feet, you can sense the presence and general direction of creatures sharing your solid surface, but not their exact location; beyond 30 feet they are effectively unseen to you.
+- [b]Ungrounded Limitation.[/b] If [b]you[/b] are not in contact with a solid surface (flying, mid-swim, held in a web, dangling from a rope, riding in a cart with no body contact to the floor, etc.), you lose Tremorsense and Distant Tremor Reading entirely. While ungrounded, [b]creatures beyond 5 feet are unseen to you[/b], and you rely only on your 5-foot blindsight unless you have another sense (e.g., magical blindsight, truesight).
+- [b]Keen Vibration Sense.[/b] You have advantage on Wisdom (Perception) checks made to detect creatures, movement, collapses, or mechanisms [i]through solid materials[/i]. This does not grant advantage to perceive airborne sounds.
+
+[h3]Keratin & Combat[/h3]
+- [b]Keratin Plating (Natural Armor).[/b] When you aren’t wearing armor, your AC equals 13 + your Constitution modifier (maximum 15). You can use a shield with this trait.
+- [b]Claws.[/b] Your keratin claws are natural weapons. You can make unarmed strikes that deal [roll:1d4] slashing damage on a hit.
+- [b]Stonebound Aim.[/b] Your vision is poor at range. You have [i]disadvantage[/i] on ranged weapon attack rolls against targets more than 30 feet away. This disadvantage is [i]ignored[/i] [b]only[/b] if the target is in contact with the same solid surface as you (allowing you to “sight” them via tremorsense). If either (a) the target is airborne/otherwise not sharing your surface, or (b) [b]you[/b] are ungrounded, you cannot ignore the disadvantage—and if the target is [i]unseen[/i] to you due to the rules above, the usual unseen-target penalties apply regardless of range.
+
+[h3]Element Processing[/h3]
+You can grind certain minerals/metals into fine powder, mix them into a food or drink, and ritually ingest them—carefully, to avoid internal harm. After a 1-hour ingestion ritual, you gain the chosen infusion’s benefits for 24 hours or until you finish a long rest (whichever comes first). You can have only one infusion at a time; starting a new one ends the old one. The GM may require a gp cost for materials. Class and wealth are visible on your body: rare infusions create lustrous, jewel-toned plates.
+- [b]Tier I (Level 1+):[/b] Accepts [i]steel, iron, or marble[/i]. Your natural armor becomes a flat [b]AC 15[/b] (if it would be lower). Suggested material cost: 10–25 gp per infusion.
+- [b]Tier II (Level 5+):[/b] Accepts [i]mithral[/i] or [i]obsidian[/i]. Choose one:
+-- [i]Mithral Infusion:[/i] Your natural armor becomes [b]AC 17[/b]. Suggested cost: 200+ gp.
+-- [i]Obsidian Infusion:[/i] Your natural armor becomes [b]AC 16[/b], and you gain [b]resistance to fire damage[/b]. Suggested cost: 50+ gp.
+- [b]Tier III (Level 10+):[/b] Accepts [i]diamond[/i] or [i]adamantine[/i]. Choose one:
+-- [i]Diamond Infusion:[/i] Your natural armor becomes [b]AC 18[/b]. Once per long rest, when a creature within 5 feet hits you with a melee attack, you can refract a burst of light and force; the attacker takes damage equal to your proficiency bonus (radiant or piercing, your choice), and it has [i]disadvantage[/i] on the next attack roll it makes before the end of its next turn. Suggested cost: 500+ gp.
+-- [i]Adamantine Infusion:[/i] Your natural armor becomes [b]AC 18[/b]. Critical hits against you become normal hits. Suggested cost: 500+ gp.
+
+[i]Notes:[/i]
+- Infusion benefits apply only while you are not wearing armor (shields allowed).
+- The GM can add other rare materials with thematically linked benefits (e.g., cold iron, quicksilver) as quest rewards.
+- Consuming large shards or jagged pieces is dangerous—proper preparation into fine powder is essential.
+
+[h3]Sun-Sensitive Biology[/h3]
+- [b]Sunburned Plates.[/b] Your plates crack and your underlying skin suffers in direct sun. After each continuous hour in direct sunlight without adequate protection, you gain 1 level of [i]Sunburn[/i] (maximum 3). Each level reduces your hit point maximum by an amount equal to your [b]proficiency bonus[/b]. At 3 levels of Sunburn, you also gain 1 level of exhaustion. Sunburn is removed by a long rest in darkness or subterranean conditions, or by receiving at least 10 points of magical healing per Sunburn level.
+-- [i]Protection:[/i] Veils, layered cloaks, parasols, or mineral creams can prevent Sunburn at the GM’s discretion.
+-- [i]DM Gritty Variant:[/i] For a harsher sun, each unprotected hour instead reduces max HP by an amount equal to the character’s [b]level[/b].
+
+[h3]Culture[/h3]
+- [b]Faith of the Firmament.[/b] Kharakthi revere the Deity of Firmament; prayers are performed as drummed vibrations in resonant caverns.
+- [b]Tremorspeak Networks.[/b] Major cities maintain resonance chambers to transmit coded messages across vast distances underground.
+- [b]Material Status.[/b] Nobles and elite warriors display brilliant, gem-bright plates; commoners show matte, muted tones.
+
+[h3]Optional Proficiencies (GM/Player Choice)[/h3]
+- Choose one: Mason’s Tools, Cartographer’s Tools, or Tinker’s Tools.
+- Skill: Choose one of Perception, Survival, or Athletics.
+
+[hr]
+
+[h3]DM Options & Rulings[/h3]
+- [b]Burrowing Through Stone:[/b] With Adamantine Infusion, a Kharakthi can burrow through unworked stone at half burrow speed, leaving a narrow, rough tunnel.
+- [b]Shared Surface Clarification:[/b] Tremorsense requires a [i]continuous[/i] solid medium between you and the target. Separate pillars, hanging bridges, suspended cages, or gaps in the stone break the chain. Thin metal grates or thick carpets may transmit poorly—GM’s call.
+- [b]Airborne Interactions:[/b] Airborne or levitating creatures are unseen beyond 5 feet; thrown/falling objects may briefly “ping” when they strike and vibrate a surface.
+- [b]Ranged Disadvantage Edge Cases:[/b] If a target is unseen to the Kharakthi due to lack of shared surface or the Kharakthi being ungrounded, the unseen-target rules apply regardless of distance.
